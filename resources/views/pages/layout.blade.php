@@ -121,87 +121,13 @@
                                         <ul>
                                             <li class="dropdown active">
                                                 <a href="#">Home</a>
-                                                <ul>
-                                                    <li class="active dropdown-submenus"><a href="#">Static Versions <i
-                                                                class="fas fa-chevron-right"></i></a>
-                                                        <ul>
-                                                            <li class="active"><a href="index.html">Home 1</a>
-                                                            </li>
-                                                            <li><a href="index-2.html">Home 2</a></li>
-                                                            <li><a href="index-3.html">Home 3</a></li>
-                                                        </ul>
-                                                    </li>
-                                                    <li class="dropdown-submenus"><a href="#">Slider Versions <i
-                                                                class="fas fa-chevron-right"></i></a>
-                                                        <ul>
-                                                            <li><a href="index-4.html">Home 4</a></li>
-                                                            <li><a href="index-5.html">Home 5</a></li>
-                                                            <li><a href="index-6.html">Home 6</a></li>
-                                                        </ul>
-                                                    </li>
-                                                    <li class="dropdown-submenus"><a href="#">Video Versions <i
-                                                                class="fas fa-chevron-right"></i></a>
-                                                        <ul>
-                                                            <li><a href="index-7.html">Home 7</a></li>
-                                                            <li><a href="index-8.html">Home 8</a></li>
-                                                            <li><a href="index-9.html">Home 9</a></li>
-                                                        </ul>
-                                                    </li>
-                                                    <li class="dropdown-submenus"><a href="#">Parallax Versions <i
-                                                                class="fas fa-chevron-right"></i></a>
-                                                        <ul>
-                                                            <li><a href="index-10.html">Home 10</a></li>
-                                                            <li><a href="index-11.html">Home 11</a></li>
-                                                            <li><a href="index-12.html">Home 12</a></li>
-                                                        </ul>
-                                                    </li>
-                                                    <li class="dropdown-submenus"><a href="#">Water Versions <i
-                                                                class="fas fa-chevron-right"></i></a>
-                                                        <ul>
-                                                            <li><a href="index-13.html">Home 13</a></li>
-                                                            <li><a href="index-14.html">Home 14</a></li>
-                                                            <li><a href="index-15.html">Home 15</a></li>
-                                                        </ul>
-                                                    </li>
-                                                </ul>
+
                                             </li>
+
+
+                                             
                                             <li>
-                                                <a href="about.html">About Us</a>
-                                            </li>
-                                            <li class="dropdown">
-                                                <a href="#">Services</a>
-                                                <ul>
-                                                    <li><a href="services.html">Services</a></li>
-                                                    <li><a href="service-details.html">Service Details</a></li>
-                                                </ul>
-                                            </li>
-                                            <li class="dropdown">
-                                                <a href="#">Blog</a>
-                                                <ul>
-                                                    <li><a href="blogs.html">Blogs List</a></li>
-                                                    <li><a href="blog-grid.html">Blogs Grid</a></li>
-                                                    <li><a href="blog-grid-sidebar.html">Blogs Grid Sidebar</a></li>
-                                                    <li><a href="blog-details.html">Blog Details</a></li>
-                                                </ul>
-                                            </li>
-                                            <li class="dropdown">
-                                                <a href="#">Pages</a>
-                                                <ul>
-                                                    <li><a href="category.html">Category</a></li>
-                                                    <li><a href="product-details.html">Product Details</a></li>
-                                                    <li><a href="cart.html">Cart</a></li>
-                                                    <li><a href="checkout.html">Checkout</a></li>
-                                                    <li><a href="gallery.html">Gallery Grid</a></li>
-                                                    <li><a href="gallery-masonry.html">Gallery Masonry</a></li>
-                                                    <li><a href="testimonial.html">Testimonial</a></li>
-                                                    <li><a href="faq.html">FAQ</a></li>
-                                                    <li><a href="quote.html">Quote</a></li>
-                                                    <li><a href="pricing.html">Pricing</a></li>
-                                                    <li><a href="404.html">404 Page</a></li>
-                                                </ul>
-                                            </li>
-                                            <li>
-                                                <a href="contact.html">Contact</a>
+                                                <a href="{{ route('login') }}">My Account</a>
                                             </li>
                                         </ul>
                                     </nav>
@@ -749,11 +675,11 @@
 
 
     <!-- preloader section start -->
-    <div class="loader-container">
+    {{-- <div class="loader-container">
         <span class="loader">
             <span class="loader-inner"></span>
         </span>
-    </div>
+    </div> --}}
     <!-- preloader section end -->
 
 

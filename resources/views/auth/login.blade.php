@@ -1,73 +1,68 @@
-@extends('layouts.app')
+<!DOCTYPE html>
+<html lang="en">
 
-@section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Login') }}</div>
+<head>
+    <title>Login Account</title>
+    <!--== META TAGS ==-->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <!--== FAV ICON ==-->
+    <link rel="shortcut icon" href="images/fav.ico">
 
-                <div class="card-body">
-                    <form method="POST" action="{{ route('login') }}">
-                        @csrf
+    <!-- GOOGLE FONTS -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600|Quicksand:300,400,500" rel="stylesheet">
 
-                        <div class="form-group row">
-                            <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
+    <!-- FONT-AWESOME ICON CSS -->
+    <link rel="stylesheet" href="{{ asset('front-end/css/font-awesome.min.css') }}">
 
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
+    <!--== ALL CSS FILES ==-->
+    <link rel="stylesheet" href="{{ asset('front-end/css/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('front-end/css/mob.css') }}">
+    <link rel="stylesheet" href="{{ asset('front-end/css/bootstrap.css') }}">
+    <link rel="stylesheet" href="{{ asset('front-end/css/materialize.css') }}" />
 
-                                @error('email')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
 
-                        <div class="form-group row">
-                            <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
+</head>
 
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
+<body>
+    <div class="blog-login">
+        <div class="blog-login-in">
+            <form route="{{ route('login') }}" method="POST" autocomplete="off">
+                @csrf
+                <img src="{{ asset('front-end/images/logo.png') }}" alt="" />
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input id="first_name1" type="text" class="validate" name="email">
+                        <label for="first_name1">Email Address</label></label>
 
-                                @error('password')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <div class="col-md-6 offset-md-4">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
-
-                                    <label class="form-check-label" for="remember">
-                                        {{ __('Remember Me') }}
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="form-group row mb-0">
-                            <div class="col-md-8 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Login') }}
-                                </button>
-
-                                @if (Route::has('password.request'))
-                                    <a class="btn btn-link" href="{{ route('password.request') }}">
-                                        {{ __('Forgot Your Password?') }}
-                                    </a>
-                                @endif
-                            </div>
-                        </div>
-                    </form>
+                    </div>@error('email')
+                        <span class="text-danger">{{ $message }}</span>
+                    @enderror
                 </div>
-            </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input id="last_name" type="password" class="validate" name="password">
+                        <label for="last_name">Password</label>
+                    </div>
+                    @error('password')
+                        <span class="text-danger">{{ $message }}</span>
+                    @enderror
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <button class="waves-effect waves-light btn-large btn-log-in" type="submit">Login</button>
+                    </div>
+                </div>
+                <a href="#" class="for-pass">Forgot Password?</a>
+            </form>
         </div>
     </div>
-</div>
-@endsection
+
+    <!--======== SCRIPT FILES =========-->
+    <script src="{{ asset('front-end/js/jquery.min.js') }}"></script>
+    <script src="{{ asset('front-end/js/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('front-end/js/materialize.min.js') }}"></script>
+    <script src="{{ asset('front-end/js/custom.js') }}"></script>
+</body>
+
+</html>
