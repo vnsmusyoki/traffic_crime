@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Driver\DriverController;
 use App\Http\Controllers\PagesCOntroller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -22,3 +23,9 @@ use Illuminate\Support\Facades\Route;
 Auth::routes();
 Route::get('/', [PagesCOntroller::class, 'index']);
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::get('driver/dashboard', [DriverController::class, 'index'])->name('driver');
+Route::prefix('driver')->group(function () {
+Route::get('upload-vehicle', [DriverController::class, 'uploadvehicle']);
+});
+// Route
