@@ -33,11 +33,11 @@ class LoginController extends Controller
         if ($user->hasRole('driver')) {
             return  redirect()->route('driver');
         }
-        if ($user->hasRole('student')) {
-            return  redirect()->route('student');
+        if ($user->hasRole('trafficofficer')) {
+            return  redirect()->route('officer');
         }
-        if ($user->hasRole('employer')) {
-            return  redirect()->route('employer');
+        if ($user->hasRole('superadministrator')) {
+            return  redirect()->route('admin');
         }
     }
     public function __construct()

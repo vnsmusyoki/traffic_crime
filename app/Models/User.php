@@ -9,11 +9,15 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Laratrust\Traits\LaratrustUserTrait;
 
-class User extends Authenticatable
+class User extends Authenticatable implements MustVerifyEmail
 {
+    // use LaratrustUserTrait;
     use LaratrustUserTrait;
     use HasApiTokens, HasFactory, Notifiable;
 
+    public function driverlicense(){
+        return $this->belongsTo(DrivingLicense::class, 'driver_user_id', 'id');
+    }
     /**
      * The attributes that are mass assignable.
      *

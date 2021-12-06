@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>Driver | @yield('title')</title>
+    <title>Admin Dashboard | {{ Auth::user()->surname }}</title>
     <!--== META TAGS ==-->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -50,16 +50,17 @@
             <div class="col-md-2 col-sm-3 col-xs-6">
                 <!-- Dropdown Trigger -->
                 <a class='waves-effect dropdown-button top-user-pro' href='#' data-activates='top-menu'><img
-                        src="{{ asset('back-end/images/user/6.png') }}" alt="" />My Account <i class="fa fa-angle-down" aria-hidden="true"></i>
+                        src="{{ asset('back-end/images/user/6.png') }}" alt="" />My Account <i
+                        class="fa fa-angle-down" aria-hidden="true"></i>
                 </a>
 
                 <!-- Dropdown Structure -->
                 <ul id='top-menu' class='dropdown-content top-menu-sty'>
-                    <li><a href="" class="waves-effect"><i class="fa fa-cogs"
-                                aria-hidden="true"></i>Driver Dashboard</a>
+                    <li><a href="" class="waves-effect"><i class="fa fa-cogs" aria-hidden="true"></i>Admin
+                            Dashboard</a>
                     </li>
-                    <li><a href="" class="waves-effect"><i class="fa fa-user-plus"
-                                aria-hidden="true"></i>Update Password</a>
+                    <li><a href="" class="waves-effect"><i class="fa fa-user-plus" aria-hidden="true"></i>Update
+                            Password</a>
                     </li>
                     <li class="divider"></li>
                     <li>
@@ -100,39 +101,24 @@
                         <li><a href="index.html" class="menu-active"><i class="fa fa-bar-chart"
                                     aria-hidden="true"></i> Dashboard</a>
                         </li>
-                        <li><a href="javascript:void(0)" class="collapsible-header"><i class="fa fa-user"
-                                    aria-hidden="true"></i> Vehicle</a>
-                            <div class="collapsible-body left-sub-menu">
-                                <ul>
-                                    <li><a href="{{ url('driver/upload-vehicle') }}">Upload License</a>
-                                    </li>
 
-                                </ul>
-                            </div>
+                        <li><a href="{{ url('admin/add-crime') }}"><i class="fa fa-plus-square-o" aria-hidden="true"></i> Add Crime</a>
                         </li>
-                        <li><a href="javascript:void(0)" class="collapsible-header"><i class="fa fa-umbrella"
-                                    aria-hidden="true"></i> All Punishments</a>
-                            <div class="collapsible-body left-sub-menu">
-                                <ul>
-                                    <li><a href="{{ url('driver/all-punishments') }}">All Punishments</a>
-                                    </li>
+                        <li><a href="{{ url('admin/all-crimes') }}"><i class="fa fa-plus-square-o" aria-hidden="true"></i>  All Crimes</a>
+                        </li>
 
-                                </ul>
-                            </div>
+
+                        <li><a href="{{ url('admin/upload-checkpoint') }}"><i class="fa fa-plus-square-o" aria-hidden="true"></i> Upload CheckPoint</a>
                         </li>
-                        <li><a href=""><i class="fa fa-plus-square-o" aria-hidden="true"></i> Update License</a>
+                        <li><a href=""><i class="fa fa-plus-square-o" aria-hidden="true"></i> All CheckPoint</a> </li>
+                        <li><a href="{{ url('admin/add-officer') }}"><i class="fa fa-plus-square-o" aria-hidden="true"></i> Register traffic Officer</a>
                         </li>
-                        <li><a href=""><i class="fa fa-plus-square-o" aria-hidden="true"></i> Redeem License</a>
+                        <li><a href=""><i class="fa fa-plus-square-o" aria-hidden="true"></i> All Traffic Officers</a>
                         </li>
-                        <li><a href=""><i class="fa fa-plus-square-o" aria-hidden="true"></i> Update Vehicle Picture</a>
-                        </li>
-                        <li><a href=""><i class="fa fa-plus-square-o" aria-hidden="true"></i> Update License Number</a>
-                        </li>
+
                         <li><a href=""><i class="fa fa-sign-out" aria-hidden="true"></i> Update Password</a>
                         </li>
                         <li>
-
-
                             <a href="{{ route('logout') }}" onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
                                 <i class="fa fa-sign-out" aria-hidden="true"></i> {{ __('Logout') }}

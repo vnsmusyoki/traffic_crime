@@ -19,26 +19,9 @@
                             <p>Upload Your License Details below</p>
                         </div>
                         <div class="tab-inn">
-                            <form>
-                                <div class="row">
-                                    <div class="input-field col s6">
-                                        <input id="first_name" type="text" class="validate" name="surname"
-                                            value="{{ old('surname') }}">
-                                        <label for="first_name">Surname</label>
-                                        @error('surname')
-                                            <span class="text-danger">{{ $message }}</span>
-                                        @enderror
-                                    </div>
+                            <form method="POST" action="{{ url('driver/upload-license') }}" enctype="multipart/form-data">
+                                @csrf
 
-                                    <div class="input-field col s6">
-                                        <input id="last_name" type="text" class="validate" name="other_names"
-                                            value="{{ old('other_names') }}">
-                                        <label for="last_name">Other Names</label>
-                                        @error('surname')
-                                            <span class="text-danger">{{ $message }}</span>
-                                        @enderror
-                                    </div>
-                                </div>
                                 <div class="row">
                                     <div class="input-field col s6">
                                         <input id="phone" type="number" class="validate" name="id_number"
@@ -99,7 +82,7 @@
                                 <div class="row">
                                     <div class="input-field col s12">
                                         <select name="county_of_residence" class="validate" id="">
-                                            <option value="">Select county</option>
+                                            <option value="">Select Residence county</option>
                                             <option value="Mombasa">Mombasa</option>
                                             <option value="Nairobi">Nairobi</option>
                                         </select>
@@ -110,12 +93,39 @@
                                     <div class="input-field col s12">
                                         <input type="file" name="driving_license" class="validate">
                                         <small class="form-text text-muted">Upload Driving Licence</small>
+                                        @error('driving_license')
+                                            <span class="text-danger">{{ $message }}</span>
+                                        @enderror
                                     </div>
 
+                                    <div class="input-field col s4">
+                                        <input id="phone_number" type="number" min="1" class="validate"
+                                            name="phone_number" value="{{ old('phone_number') }}">
+                                        <label for="phone_number">Phone Number</label>
+                                        @error('phone_number')
+                                            <span class="text-danger">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+                                    <div class="input-field col s4">
+                                        <input id="plate_number" type="text" class="validate" name="plate_number"
+                                            value="{{ old('plate_number') }}">
+                                        <label for="plate_number">Plate Number</label>
+                                        @error('plate_number')
+                                            <span class="text-danger">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+                                    <div class="input-field col s4">
+                                        <input type="file" name="uploaded_vehicle" class="validate">
+                                        <small class="form-text text-muted">Upload Vehicle Image</small>
+                                        @error('uploaded_vehicle')
+                                            <span class="text-danger">{{ $message }}</span>
+                                        @enderror
+                                    </div>
                                 </div>
                                 <div class="row">
                                     <div class="input-field col s12">
-                                        <input type="submit" class="waves-effect waves-light btn-large" value="Submit Driving License">
+                                        <input type="submit" class="waves-effect waves-light btn-large"
+                                            value="Submit Driving License">
                                     </div>
                                 </div>
                             </form>
