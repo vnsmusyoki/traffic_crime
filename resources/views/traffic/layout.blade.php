@@ -50,17 +50,22 @@
             <!--== MY ACCCOUNT ==-->
             <div class="col-md-2 col-sm-3 col-xs-6">
                 <!-- Dropdown Trigger -->
-                <a class='waves-effect dropdown-button top-user-pro' href='#' data-activates='top-menu'><img
-                        src="{{ asset('back-end/images/user/6.png') }}" alt="" />My Account <i
-                        class="fa fa-angle-down" aria-hidden="true"></i>
+                <a class='waves-effect dropdown-button top-user-pro' href='#' data-activates='top-menu'>
+
+                    @if (Auth::user()->picture == null)
+                    <img src="{{ asset('back-end/images/user/6.png') }}" alt="" />
+                    @else
+                        <img src="{{ asset('storage/officers/' . Auth::user()->picture) }}" alt="">
+                    @endif
+                    My Account <i class="fa fa-angle-down" aria-hidden="true"></i>
                 </a>
 
                 <!-- Dropdown Structure -->
                 <ul id='top-menu' class='dropdown-content top-menu-sty'>
-                    <li><a href="" class="waves-effect"><i class="fa fa-cogs" aria-hidden="true"></i>Driver
+                    <li><a href="{{ url('officer/account-security') }}" class="waves-effect"><i class="fa fa-cogs" aria-hidden="true"></i>Driver
                             Dashboard</a>
                     </li>
-                    <li><a href="" class="waves-effect"><i class="fa fa-user-plus" aria-hidden="true"></i>Update
+                    <li><a href="{{ url('officer/account-security') }}" class="waves-effect"><i class="fa fa-user-plus" aria-hidden="true"></i>Update
                             Password</a>
                     </li>
                     <li class="divider"></li>
@@ -87,7 +92,13 @@
                 <!--== USER INFO ==-->
                 <div class="sb2-12">
                     <ul>
-                        <li><img src="{{ url('back-end/images/placeholder.jpg') }}" alt="">
+                        <li>
+                            @if (Auth::user()->picture == null)
+                                <img src="{{ url('back-end/images/placeholder.jpg') }}" alt="">
+                            @else
+                                <img src="{{ asset('storage/officers/' . Auth::user()->picture) }}" alt="">
+                            @endif
+
                         </li>
                         <li>
                             <h5>{{ Auth::user()->name }} <span>
@@ -102,18 +113,7 @@
                         <li><a href="{{ route('officer') }}" class="menu-active"><i class="fa fa-bar-chart"
                                     aria-hidden="true"></i> Dashboard</a>
                         </li>
-                        <li><a href="javascript:void(0)" class="collapsible-header"><i class="fa fa-user"
-                                    aria-hidden="true"></i> Vehicle</a>
-                            <div class="collapsible-body left-sub-menu">
-                                <ul>
-                                    <li><a href="{{ url('officer/upload-vehicle') }}">Upload License</a>
-                                    </li>
-                                    <li><a href="{{ url('officer/all-vehicle') }}">All Licenses</a>
-                                    </li>
 
-                                </ul>
-                            </div>
-                        </li>
                         <li><a href="javascript:void(0)" class="collapsible-header"><i class="fa fa-umbrella"
                                     aria-hidden="true"></i> All Punishments</a>
                             <div class="collapsible-body left-sub-menu">
@@ -128,7 +128,8 @@
                                     aria-hidden="true"></i> Upload Offense</a>
                         </li>
 
-                        <li><a href=""><i class="fa fa-sign-out" aria-hidden="true"></i> Update Password</a>
+                        <li><a href="{{ url('officer/account-security') }}"><i class="fa fa-sign-out"
+                                    aria-hidden="true"></i> Update Password</a>
                         </li>
                         <li>
 

@@ -3,11 +3,14 @@
 namespace App\Http\Controllers\Driver;
 
 use App\Http\Controllers\Controller;
+use App\Models\DriverCrime;
 use App\Models\DrivingLicense;
+use App\Models\TrafficOfficer;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Storage;
+use Brian2694\Toastr\Facades\Toastr;
 class DriverController extends Controller
 {
     public function __construct()
@@ -77,5 +80,61 @@ class DriverController extends Controller
         $license->save();
 
         return redirect()->route('driver');
+    }
+    public function allpunishments()
+    {
+        $offenses = DriverCrime::where('officer_id', auth()->user()->id)->orderby('created_at', 'desc')->get();
+        return view('driver.all-punishments', compact('offenses'));
+    }
+    public function accountprofile()
+    {
+        return view('driver.account-security');
+    }
+    public function updatepassword(Request $request)
+    {
+        $this->validate($request, [
+            'password' => 'required|min:8|max:20|confirmed',
+            'password_confirmation' => 'required'
+        ]);
+
+        $user = User::find(auth()->user()->id);
+        $user->password = bcrypt($request->input('password'));
+        $user->save();
+
+        Toastr::success('password has been updated.', 'Success', ["positionClass" => "toast-top-right"]);
+        return redirect()->back();
+    }
+    public function updateemail(Request $request)
+    {
+        $this->validate($request, [
+            'email' => 'required|email|unique:users',
+        ]);
+
+        $user = User::find(auth()->user()->id);
+        $user->email = $request->input('email');
+        $user->save();
+
+        Toastr::success('Email Address has been updated.', 'Success', ["positionClass" => "toast-top-right"]);
+        return redirect()->back();
+    }
+    public function updateavatar(Request $request)
+    {
+        $this->validate($request, [
+            'picture' => 'required|image|mimes:jpeg,png,jpg|max:6048',
+        ]);
+        $user = User::find(auth()->user()->id);
+        Storage::delete('public/drivers/' . $user->picture);
+        $fileNameWithExt = $request->picture->getClientOriginalName();
+        $fileName =  pathinfo($fileNameWithExt, PATHINFO_FILENAME);
+        $Extension = $request->picture->getClientOriginalExtension();
+        $filenameToStore = $fileName . '-' . time() . '.' . $Extension;
+        $path = $request->picture->storeAs('drivers', $filenameToStore, 'public');
+        $user->picture = $filenameToStore;
+        $user->save();
+
+
+
+        Toastr::success('profile Picture has been updated.', 'Success', ["positionClass" => "toast-top-right"]);
+        return redirect()->back();
     }
 }

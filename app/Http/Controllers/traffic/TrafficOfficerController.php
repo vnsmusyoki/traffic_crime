@@ -13,6 +13,7 @@ use Illuminate\Http\Request;
 use Brian2694\Toastr\Facades\Toastr;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Storage;
 
 class TrafficOfficerController extends Controller
 {
@@ -23,8 +24,9 @@ class TrafficOfficerController extends Controller
 
     public function index()
     {
-
-        return view('traffic.dashboard');
+        $offenses = DriverCrime::where('officer_id', auth()->user()->id)->orderby('created_at', 'desc')->get();
+       
+        return view('traffic.dashboard',compact('offenses'));
     }
 
     public function addoffense()
@@ -158,7 +160,7 @@ class TrafficOfficerController extends Controller
         return view('traffic.all-punishments', compact('offenses'));
     }
     public function uploadcrime(Request $request)
-    { 
+    {
         $this->validate($request, [
             'driver_mistakes' => 'required|array|min:1',
             'driverid' => 'required',
@@ -182,5 +184,58 @@ class TrafficOfficerController extends Controller
 
         Toastr::success('Driver offenses added successfully.', 'success', ["positionClass" => "toast-top-center"]);
         return redirect()->to('officer/all-punishments');
+    }
+    public function accountsecurity()
+    {
+        return view('traffic.account-security');
+    }
+    public function updatepassword(Request $request)
+    {
+        $this->validate($request, [
+            'password' => 'required|min:8|max:20|confirmed',
+            'password_confirmation' => 'required'
+        ]);
+
+        $user = User::find(auth()->user()->id);
+        $user->password = bcrypt($request->input('password'));
+        $user->save();
+
+        Toastr::success('password has been updated.', 'Success', ["positionClass" => "toast-top-right"]);
+        return redirect()->back();
+    }
+    public function updateemail(Request $request)
+    {
+        $this->validate($request, [
+            'email' => 'required|email|unique:users',
+        ]);
+
+        $user = User::find(auth()->user()->id);
+        $user->email = $request->input('email');
+        $user->save();
+
+        Toastr::success('Email Address has been updated.', 'Success', ["positionClass" => "toast-top-right"]);
+        return redirect()->back();
+    }
+    public function updateavatar(Request $request)
+    {
+        $this->validate($request, [
+            'picture' => 'required|image|mimes:jpeg,png,jpg|max:6048',
+        ]);
+        $user = User::find(auth()->user()->id);
+        Storage::delete('public/officers/' . $user->picture);
+        $fileNameWithExt = $request->picture->getClientOriginalName();
+        $fileName =  pathinfo($fileNameWithExt, PATHINFO_FILENAME);
+        $Extension = $request->picture->getClientOriginalExtension();
+        $filenameToStore = $fileName . '-' . time() . '.' . $Extension;
+        $path = $request->picture->storeAs('officers', $filenameToStore, 'public');
+        $user->picture = $filenameToStore;
+        $user->save();
+
+        $officer = TrafficOfficer::where('traffic_user_id', $user->id)->get()->first();
+        $officer->picture =  $filenameToStore;
+        $officer->save();
+
+        Toastr::success('profile Picture has been updated.', 'Success', ["positionClass" => "toast-top-right"]);
+        return redirect()->back();
     }
 }

@@ -30,6 +30,11 @@ Route::get('driver/dashboard', [DriverController::class, 'index'])->name('driver
 Route::prefix('driver')->group(function () {
     Route::get('upload-vehicle', [DriverController::class, 'uploadvehicle']);
     Route::post('upload-license', [DriverController::class, 'uploadlicense']);
+    Route::get('all-punishments', [DriverController::class, 'allpunishments']);
+    Route::get('account-security', [DriverController::class, 'accountprofile']);
+    Route::post('update-password', [DriverController::class, 'updatepassword']);
+    Route::post('update-email', [DriverController::class, 'updateemail']);
+    Route::post('update-avatar', [DriverController::class, 'updateavatar']);
 });
 // Route
 Route::get('traffic/dashboard', [TrafficOfficerController::class, 'index'])->name('officer');
@@ -41,6 +46,10 @@ Route::prefix('officer')->group(function () {
     Route::post('upload-license', [TrafficOfficerController::class, 'uploadlicense']);
     Route::get('all-punishments', [TrafficOfficerController::class, 'allpunishments']);
     Route::post('upload-crime', [TrafficOfficerController::class, 'uploadcrime']);
+    Route::get('account-security', [TrafficOfficerController::class, 'accountsecurity']);
+    Route::post('update-password', [TrafficOfficerController::class, 'updatepassword']);
+    Route::post('update-email', [TrafficOfficerController::class, 'updateemail']);
+    Route::post('update-avatar', [TrafficOfficerController::class, 'updateavatar']);
 });
 
 Route::get('admin/dashboard', [AdminController::class, 'index'])->name('admin');

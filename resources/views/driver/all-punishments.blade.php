@@ -1,5 +1,5 @@
-@extends('traffic.layout')
-@section('title', 'Dashboard')
+@extends('driver.layout')
+@section('title', 'Traffic Crime Mistakes')
 @section('content')
     <div class="sb2-2">
         <!--== breadcrumbs ==-->
@@ -9,7 +9,7 @@
                 </li>
                 <li class="active-bre"><a href="#"> Dashboard</a>
                 </li>
-                <li class="page-back"><a href="{{ route('officer') }}"><i class="fa fa-backward"
+                <li class="page-back"><a href="{{ route('driver') }}"><i class="fa fa-backward"
                             aria-hidden="true"></i>
                         Back</a>
                 </li>
@@ -18,7 +18,7 @@
         <!--== DASHBOARD INFO ==-->
         <div class="ad-v2-hom-info">
             <div class="card row " style="padding: 1rem .5rem;">
-                <h5>All Offenses Uploaded</h5>
+
                 <div class="col-lg-12 mt-5">
                     <div class="table-responsive">
                         <table class="table table-bordered">

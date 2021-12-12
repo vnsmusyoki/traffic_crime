@@ -20,6 +20,7 @@
     <link rel="stylesheet" href="{{ asset('back-end/css/mob.css') }}">
     <link rel="stylesheet" href="{{ asset('back-end/css/bootstrap.css') }}">
     <link rel="stylesheet" href="{{ asset('back-end/css/materialize.css') }}" />
+    <link rel="stylesheet" href="{{ asset('back-end/css/toastr.min.css') }}" />
 </head>
 
 <body>
@@ -49,17 +50,23 @@
             <!--== MY ACCCOUNT ==-->
             <div class="col-md-2 col-sm-3 col-xs-6">
                 <!-- Dropdown Trigger -->
-                <a class='waves-effect dropdown-button top-user-pro' href='#' data-activates='top-menu'><img
-                        src="{{ asset('back-end/images/user/6.png') }}" alt="" />My Account <i class="fa fa-angle-down" aria-hidden="true"></i>
+                <a class='waves-effect dropdown-button top-user-pro' href='#' data-activates='top-menu'>
+
+                    @if (Auth::user()->picture == null)
+                        <img src="{{ asset('back-end/images/user/6.png') }}" alt="" />
+                    @else
+                        <img src="{{ asset('storage/officers/' . Auth::user()->picture) }}" alt="">
+                    @endif
+                    My Account <i class="fa fa-angle-down" aria-hidden="true"></i>
                 </a>
 
                 <!-- Dropdown Structure -->
                 <ul id='top-menu' class='dropdown-content top-menu-sty'>
-                    <li><a href="" class="waves-effect"><i class="fa fa-cogs"
-                                aria-hidden="true"></i>Driver Dashboard</a>
+                    <li><a href="" class="waves-effect"><i class="fa fa-cogs" aria-hidden="true"></i>Driver
+                            Dashboard</a>
                     </li>
-                    <li><a href="" class="waves-effect"><i class="fa fa-user-plus"
-                                aria-hidden="true"></i>Update Password</a>
+                    <li><a href="" class="waves-effect"><i class="fa fa-user-plus" aria-hidden="true"></i>Update
+                            Password</a>
                     </li>
                     <li class="divider"></li>
                     <li>
@@ -85,7 +92,13 @@
                 <!--== USER INFO ==-->
                 <div class="sb2-12">
                     <ul>
-                        <li><img src="{{ url('back-end/images/placeholder.jpg') }}" alt="">
+                        <li>
+
+                            @if (Auth::user()->picture == null)
+                            <img src="{{ url('back-end/images/placeholder.jpg') }}" alt="">
+                            @else
+                                <img src="{{ asset('storage/officers/' . Auth::user()->picture) }}" alt="">
+                            @endif
                         </li>
                         <li>
                             <h5>{{ Auth::user()->name }} <span>
@@ -120,15 +133,9 @@
                                 </ul>
                             </div>
                         </li>
-                        <li><a href=""><i class="fa fa-plus-square-o" aria-hidden="true"></i> Update License</a>
-                        </li>
-                        <li><a href=""><i class="fa fa-plus-square-o" aria-hidden="true"></i> Redeem License</a>
-                        </li>
-                        <li><a href=""><i class="fa fa-plus-square-o" aria-hidden="true"></i> Update Vehicle Picture</a>
-                        </li>
-                        <li><a href=""><i class="fa fa-plus-square-o" aria-hidden="true"></i> Update License Number</a>
-                        </li>
-                        <li><a href=""><i class="fa fa-sign-out" aria-hidden="true"></i> Update Password</a>
+
+                        <li><a href="{{ url('driver/account-security') }}"><i class="fa fa-sign-out"
+                                    aria-hidden="true"></i> Update Password</a>
                         </li>
                         <li>
 
@@ -159,6 +166,8 @@
     <script src="{{ asset('back-end/js/bootstrap.min.js') }}"></script>
     <script src="{{ asset('back-end/js/materialize.min.js') }}"></script>
     <script src="{{ asset('back-end/js/custom.js') }}"></script>
+    <script src="{{ asset('back-end/js/toastr.min.js') }}"></script>
+    {!! Toastr::message() !!}
 </body>
 
 </html>
