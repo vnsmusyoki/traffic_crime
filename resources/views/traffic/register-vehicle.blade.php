@@ -1,5 +1,5 @@
 @extends('traffic.layout')
-@section('title', 'Add  Vehicle Details')
+@section('title', 'Add Vehicle Details')
 @section('content')
     <div class="sb2-2">
         <div class="sb2-2-2">
@@ -16,12 +16,43 @@
                     <div class="box-inn-sp">
                         <div class="inn-title">
                             <h4>Add New Vehicle</h4>
-                            <p>Upload Your License Details below</p>
+                            <p>Upload Driver License Details below <br>
+                                or
+                                <a href="{{ url('officer/driver-offense') }}" class="btn  btn-primary">SEARCH LICENSE
+                                    AGAIN</a>
+                            </p>
                         </div>
                         <div class="tab-inn">
-                            <form method="POST" action="{{ url('driver/upload-license') }}" enctype="multipart/form-data">
+                            <form method="POST" action="{{ url('officer/upload-license') }}"
+                                enctype="multipart/form-data">
                                 @csrf
+                                <div class="row">
+                                    <div class="input-field col s4">
 
+                                        <input id="fnames" type="text" class="validate" name="surname"
+                                            value="{{ old('surname') }}">
+                                        <label for="fnames">Surname</label></label>
+                                        @error('surname')
+                                            <span class="text-danger">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+                                    <div class="input-field col s4">
+                                        <input id="othernaes" type="text" class="validate" name="other_names"
+                                            value="{{ old('other_names') }}">
+                                        <label for="othernaes">Other Names</label></label>
+                                        @error('other_names')
+                                            <span class="text-danger">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+                                    <div class="input-field col s4">
+                                        <input id="cemail" type="text" class="validate" name="email"
+                                            value="{{ old('email') }}">
+                                        <label for="cemail">Valid Email Address</label>
+                                        @error('email')
+                                            <span class="text-danger">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+                                </div>
                                 <div class="row">
                                     <div class="input-field col s6">
                                         <input id="phone" type="number" class="validate" name="id_number"
@@ -122,6 +153,28 @@
                                         @enderror
                                     </div>
                                 </div>
+                                <center>All Offenses</center>
+                                <div class="card jumbotron">
+                                    <div class="row">
+
+
+                                        <div class="input-field col s12">
+                                            <select name="driver_mistakes[]" class="validate" id="" multiple>
+                                                @foreach ($offenses as $offense)
+                                                    <option value="{{ $offense->id }}">{{ $offense->crime_name }} -
+                                                        {{ $offense->crime_points }}</option>
+                                                @endforeach
+                                            </select>
+                                            @error('driver_mistakes')
+                                                <span class="text-danger">{{ $message }}</span>
+                                            @enderror
+
+                                        </div>
+
+
+                                    </div>
+                                </div>
+
                                 <div class="row">
                                     <div class="input-field col s12">
                                         <input type="submit" class="waves-effect waves-light btn-large"

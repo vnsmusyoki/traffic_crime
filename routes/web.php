@@ -36,7 +36,8 @@ Route::get('traffic/dashboard', [TrafficOfficerController::class, 'index'])->nam
 Route::prefix('officer')->group(function () {
     Route::get('driver-offense', [TrafficOfficerController::class, 'addoffense']);
     Route::post('search-license', [TrafficOfficerController::class, 'searchlicense']);
-    Route::post('add-license', [TrafficOfficerController::class, 'adddriverlicense']);
+    Route::get('add-license', [TrafficOfficerController::class, 'adddriverlicense']);
+    Route::post('upload-license', [TrafficOfficerController::class, 'uploadlicense']);
 });
 
 Route::get('admin/dashboard', [AdminController::class, 'index'])->name('admin');
