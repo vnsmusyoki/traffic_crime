@@ -1,4 +1,3 @@
-
 @extends('traffic.layout')
 @section('title', 'Traffic Dashboard')
 @section('content')
@@ -15,50 +14,15 @@
                 </li>
             </ul>
         </div>
-        <!--== DASHBOARD INFO ==-->
-        <div class="ad-v2-hom-info">
-            <div class="ad-v2-hom-info-inn">
-                <ul>
-                    <li>
-                        <div class="ad-hom-box ad-hom-box-1">
-                            <span class="ad-hom-col-com ad-hom-col-1"><i class="fa fa-bar-chart"></i></span>
-                            <div class="ad-hom-view-com">
-                                <p><i class="fa  fa-arrow-up up"></i> Points Today</p>
-                                <h3>2</h3>
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="ad-hom-box ad-hom-box-2">
-                            <span class="ad-hom-col-com ad-hom-col-2"><i class="fa fa-usd"></i></span>
-                            <div class="ad-hom-view-com">
-                                <p><i class="fa  fa-arrow-up up"></i> Total Points</p>
-                                {{-- <h3>{{ $driver->driver_points}}</h3> --}}
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="ad-hom-box ad-hom-box-3">
-                            <span class="ad-hom-col-com ad-hom-col-3"><i class="fa fa-address-card-o"></i></span>
-                            <div class="ad-hom-view-com">
-                                <p><i class="fa  fa-arrow-up up"></i> License No.</p>
-                                {{-- <h6>{{ $driver->license_number}}</h6> --}}
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="ad-hom-box ad-hom-box-4">
-                            <span class="ad-hom-col-com ad-hom-col-4"><i class="fa fa-envelope-open-o"></i></span>
-                            <div class="ad-hom-view-com">
-                                <p><i class="fa  fa-arrow-up up"></i> Plate No.</p>
-                                {{-- <h6>{{ $driver->plate_number}}</h6> --}}
-                            </div>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-        </div>
-
-
+       <form action="">
+           <div class="row">
+               <div class="col-lg-4 col-md-4 col-xs-12 col-sm-6">
+                   <div class="form-group">
+                       <label for="">Driver Name</label>
+                       <input type="text" name="driver" class="form-control">
+                   </div>
+               </div>
+           </div>
+       </form>
     </div>
 @endsection

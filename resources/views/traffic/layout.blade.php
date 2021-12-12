@@ -98,7 +98,7 @@
                 <!--== LEFT MENU ==-->
                 <div class="sb2-13">
                     <ul class="collapsible" data-collapsible="accordion">
-                        <li><a href="index.html" class="menu-active"><i class="fa fa-bar-chart"
+                        <li><a href="{{ route('officer') }}" class="menu-active"><i class="fa fa-bar-chart"
                                     aria-hidden="true"></i> Dashboard</a>
                         </li>
                         <li><a href="javascript:void(0)" class="collapsible-header"><i class="fa fa-user"
