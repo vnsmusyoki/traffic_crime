@@ -20,6 +20,7 @@
     <link rel="stylesheet" href="{{ asset('back-end/css/mob.css') }}">
     <link rel="stylesheet" href="{{ asset('back-end/css/bootstrap.css') }}">
     <link rel="stylesheet" href="{{ asset('back-end/css/materialize.css') }}" />
+    <link rel="stylesheet" href="{{ asset('back-end/css/toastr.min.css') }}" />
 </head>
 
 <body>
@@ -123,7 +124,7 @@
                                 </ul>
                             </div>
                         </li>
-                        <li><a href="{{ url('officer/add-offense') }}"><i class="fa fa-plus-square-o"
+                        <li><a href="{{ url('officer/driver-offense') }}"><i class="fa fa-plus-square-o"
                                     aria-hidden="true"></i> Upload Offense</a>
                         </li>
 
@@ -158,6 +159,8 @@
     <script src="{{ asset('back-end/js/bootstrap.min.js') }}"></script>
     <script src="{{ asset('back-end/js/materialize.min.js') }}"></script>
     <script src="{{ asset('back-end/js/custom.js') }}"></script>
+    <script src="{{ asset('back-end/js/toastr.min.js') }}"></script>
+    {!! Toastr::message() !!}
 </body>
 
 </html>
