@@ -46,11 +46,18 @@ class TrafficOfficerController extends Controller
             Toastr::error('License Details Not Found. try to search again or add driver to the system.', 'Error', ["positionClass" => "toast-top-right"]);
             return redirect()->to('officer/add-license');
         } else {
-            $offenses = DriverCrime::where('driver_id', $driver->driver_user_id)->orderby('created_at','desc')->get();
-            $user = User::findOrFail($driver->driver_user_id);
             Toastr::success('License Details  Found. ', 'Success', ["positionClass" => "toast-top-right"]);
-            return view('traffic.driver-profile',compact(['driver', 'offenses', 'user']));
+            return redirect()->to('officer/driver-license/' . $idnumber . '/' . $license);
         }
+    }
+    public function licensefound($idnumber, $license)
+    {
+        $driver = DrivingLicense::where(['id_number' => $idnumber, 'license_number' => $license])->get()->first();
+        $offenses = DriverCrime::where('driver_id', $driver->driver_user_id)->orderby('created_at', 'desc')->get();
+        $user = User::findOrFail($driver->driver_user_id);
+        $crimes = TrafficCrime::all();
+
+        return view('traffic.driver-profile', compact(['driver', 'offenses', 'user', 'crimes']));
     }
     public function adddriverlicense()
     {
@@ -130,6 +137,7 @@ class TrafficOfficerController extends Controller
             $crime = new DriverCrime;
             $crime->crime_id = $mistake;
             $crime->driver_id = $driver->id;
+            $crime->license_id = $license->id;
             $crime->points = $trafficoffense->crime_points;
             $crime->officer_id = auth()->user()->id;
             $crime->checkpoint_id = $officercheckpoint->checkpoint_id;
@@ -143,5 +151,36 @@ class TrafficOfficerController extends Controller
         Mail::to($receiver)->send(new DriverRegistration($receiver, $message, $topic));
         Toastr::success('Driver details and account created successfully and the mistakes uploaded.', 'success', ["positionClass" => "toast-top-center"]);
         return redirect()->to('officer/add-license');
+    }
+    public function allpunishments()
+    {
+        $offenses = DriverCrime::where('officer_id', auth()->user()->id)->orderby('created_at', 'desc')->get();
+        return view('traffic.all-punishments', compact('offenses'));
+    }
+    public function uploadcrime(Request $request)
+    { 
+        $this->validate($request, [
+            'driver_mistakes' => 'required|array|min:1',
+            'driverid' => 'required',
+        ]);
+
+        $license = DrivingLicense::where('driver_user_id', $request->input('driverid'))->get()->first();
+        $officercheckpoint = TrafficOfficer::where('traffic_user_id', auth()->user()->id)->get()->first();
+        $mistakes = $request->input('driver_mistakes');
+        foreach ($mistakes as $mistake) {
+            $trafficoffense = TrafficCrime::findOrFail($mistake);
+            $crime = new DriverCrime;
+            $crime->crime_id = $mistake;
+            $crime->driver_id = $request->input('driverid');
+            $crime->license_id = $license->id;
+            $crime->points = $trafficoffense->crime_points;
+            $crime->officer_id = auth()->user()->id;
+            $crime->checkpoint_id = $officercheckpoint->checkpoint_id;
+            $crime->vehicle = $license->plate_number;
+            $crime->save();
+        }
+
+        Toastr::success('Driver offenses added successfully.', 'success', ["positionClass" => "toast-top-center"]);
+        return redirect()->to('officer/all-punishments');
     }
 }

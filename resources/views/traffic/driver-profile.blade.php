@@ -79,17 +79,48 @@
                                 <td>County of Residence</td>
                                 <td>{{ $driver->county_of_residence }}</td>
                             </tr>
-
                         </tbody>
                     </table>
                 </div>
-                <div class="col-lg-8 col-md-8 col-xs-12 col-sm-12">
+
+                <div class="col-lg-2 col-md-2 col-xs-12 col-sm-12"></div>
+                <div class="col-lg-6 col-md-6 col-xs-12 col-sm-12">
                     <center>
                         <h4>Vehicle details</h4>
                     </center>
                     <hr>
                     <img src="{{ asset('storage/vehicles/' . $driver->uploaded_vehicle) }}" class="img-fluid"
                         alt="">
+
+                    <form action="{{ url('officer/upload-crime') }}" method="POST">
+                        @csrf
+                        <div class="card jumbotron">
+                            <input type="hidden" name="driverid" value="{{ $driver->driver_user_id }}">
+                            <div class="row">
+                                <div class="input-field col s12">
+                                    <select name="driver_mistakes[]" class="validate" id="" multiple >
+                                        <option value="">Select all mistakes where applicable</option>
+                                        @foreach ($crimes as $crime)
+                                            <option value="{{ $crime->id }}">{{ $crime->crime_name }} -
+                                                {{ $crime->crime_points }}</option>
+                                        @endforeach
+                                    </select>
+                                    @error('driver_mistakes')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+
+                                </div>
+
+
+                            </div>
+                            <div class="row">
+                                <div class="input-field col s12">
+                                    <input type="submit" class="waves-effect waves-light btn-large"
+                                        value="Upload Crime">
+                                </div>
+                            </div>
+                        </div>
+                    </form>
                 </div>
                 <br>
                 <hr>

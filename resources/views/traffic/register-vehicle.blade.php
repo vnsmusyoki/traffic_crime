@@ -156,8 +156,6 @@
                                 <center>All Offenses</center>
                                 <div class="card jumbotron">
                                     <div class="row">
-
-
                                         <div class="input-field col s12">
                                             <select name="driver_mistakes[]" class="validate" id="" multiple>
                                                 <option value="">Select all mistakes where applicable</option>

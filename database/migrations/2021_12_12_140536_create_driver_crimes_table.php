@@ -19,11 +19,13 @@ class CreateDriverCrimesTable extends Migration
             $table->bigInteger('driver_id')->nullable()->unsigned();
             $table->integer('points');
             $table->bigInteger('officer_id')->nullable()->unsigned();
+            $table->bigInteger('license_id')->nullable()->unsigned();
             $table->bigInteger('checkpoint_id')->nullable()->unsigned();
             $table->string('vehicle');
             $table->foreign('crime_id')->references('id')->on('traffic_crimes')->onDelete('cascade');
             $table->foreign('driver_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('officer_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('license_id')->references('id')->on('driving_licenses')->onDelete('cascade');
             $table->foreign('checkpoint_id')->references('id')->on('traffic_check_points')->onDelete('cascade');
             $table->timestamps();
         });
