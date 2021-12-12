@@ -3,12 +3,16 @@
 namespace App\Http\Controllers\traffic;
 
 use App\Http\Controllers\Controller;
+use App\Mail\DriverRegistration;
+use App\Models\DriverCrime;
 use App\Models\DrivingLicense;
 use App\Models\TrafficCrime;
+use App\Models\TrafficOfficer;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Brian2694\Toastr\Facades\Toastr;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Mail;
 
 class TrafficOfficerController extends Controller
 {
@@ -42,8 +46,10 @@ class TrafficOfficerController extends Controller
             Toastr::error('License Details Not Found. try to search again or add driver to the system.', 'Error', ["positionClass" => "toast-top-right"]);
             return redirect()->to('officer/add-license');
         } else {
+            $offenses = DriverCrime::where('driver_id', $driver->driver_user_id)->orderby('created_at','desc')->get();
+            $user = User::findOrFail($driver->driver_user_id);
             Toastr::success('License Details  Found. ', 'Success', ["positionClass" => "toast-top-right"]);
-            return view('traffic.driver-profile');
+            return view('traffic.driver-profile',compact(['driver', 'offenses', 'user']));
         }
     }
     public function adddriverlicense()
@@ -54,8 +60,10 @@ class TrafficOfficerController extends Controller
     public function uploadlicense(Request $request)
     {
 
+        $officercheckpoint = TrafficOfficer::where('traffic_user_id', auth()->user()->id)->get()->first();
+
         $this->validate($request, [
-            'driver_mistakes'=>'required|array',
+            'driver_mistakes' => 'required|array|min:1',
             'surname' => 'required|string',
             'other_names' => 'required|string',
             'email' => 'required|email|unique:users',
@@ -114,6 +122,26 @@ class TrafficOfficerController extends Controller
 
         $license->save();
 
-        // return redirect()->route('driver');
+
+        $officercheckpoint = TrafficOfficer::where('traffic_user_id', auth()->user()->id)->get()->first();
+        $mistakes = $request->input('driver_mistakes');
+        foreach ($mistakes as $mistake) {
+            $trafficoffense = TrafficCrime::findOrFail($mistake);
+            $crime = new DriverCrime;
+            $crime->crime_id = $mistake;
+            $crime->driver_id = $driver->id;
+            $crime->points = $trafficoffense->crime_points;
+            $crime->officer_id = auth()->user()->id;
+            $crime->checkpoint_id = $officercheckpoint->checkpoint_id;
+            $crime->vehicle = $request->input('plate_number');
+            $crime->save();
+        }
+
+        $receiver = $request->input('email');
+        $message = "You have been added as one of the drivers using the email provided. - " . $receiver . ". use this password to access your account. - " . $password . ". From your dashboard you can monitor all the events and mistakes recorded.";
+        $topic = "Traffic Management System";
+        Mail::to($receiver)->send(new DriverRegistration($receiver, $message, $topic));
+        Toastr::success('Driver details and account created successfully and the mistakes uploaded.', 'success', ["positionClass" => "toast-top-center"]);
+        return redirect()->to('officer/add-license');
     }
 }

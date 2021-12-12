@@ -160,6 +160,7 @@
 
                                         <div class="input-field col s12">
                                             <select name="driver_mistakes[]" class="validate" id="" multiple>
+                                                <option value="">Select all mistakes where applicable</option>
                                                 @foreach ($offenses as $offense)
                                                     <option value="{{ $offense->id }}">{{ $offense->crime_name }} -
                                                         {{ $offense->crime_points }}</option>
