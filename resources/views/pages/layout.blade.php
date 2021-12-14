@@ -43,7 +43,7 @@
                     <div class="col-lg-3 col-6">
                         <div class="logo-wrapper">
                             <div class="logo-wrapper-inner">
-                                <a href="{{ url('/')}}"><img src="assets/img/logo.png" alt=""></a>
+                                <a href="{{ url('/')}}"><img src="{{ asset('front-end/img/logo.png')}}" alt=""></a>
                             </div>
                         </div>
                     </div>
@@ -54,7 +54,7 @@
                                 <div class="col-lg-9 d-lg-block d-none">
                                     <nav class="main-menu" id="mainMenu">
                                         <ul>
-                                            <li class="dropdown active">
+                                            <li class="active">
                                                 <a href="{{ url('/') }}">Home</a>
                                             </li>
                                             <li>
