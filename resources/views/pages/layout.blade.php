@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Transpix - Transport & Logistic HTML Template</title>
+    <title>Traffic Crime Management System</title>
     <!-- favicon -->
     <link rel="shortcut icon" href="{{ asset('assets/img/favicon.png') }}" type="image/x-icon">
     <!-- bootstrap css -->
@@ -36,112 +36,43 @@
 <body>
     <!--   header area start   -->
     <div class="header-area">
-        <div class="info-bar">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-4 col-8">
-                        <ul class="social-links">
-                            <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
-                            <li><a href="#"><i class="fab fa-twitter"></i></a></li>
-                            <li><a href="#"><i class="fab fa-linkedin-in"></i></a></li>
-                            <li><a href="#"><i class="fab fa-google-plus-g"></i></a></li>
-                        </ul>
-                    </div>
-                    <div class="col-lg-8 col-4">
-                        <div class="right-content">
-                            <span class="working-time">Opening Hours : Monday - Saturday 9 am to 5 pm</span>
-                            <div class="language">
-                                <a href="#" class="dropdown-btn">EN <i class="flaticon-down-arrow"></i></a>
-                                <ul class="language-dropdown">
-                                    <li>
-                                        <a href="#">English</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">French</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Spanish</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Arabic</a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+
         <div class="support-nav-area">
             <div class="container">
                 <div class="row">
                     <div class="col-lg-3 col-6">
                         <div class="logo-wrapper">
                             <div class="logo-wrapper-inner">
-                                <a href="index.html"><img src="assets/img/logo.png" alt=""></a>
+                                <a href="{{ url('/')}}"><img src="assets/img/logo.png" alt=""></a>
                             </div>
                         </div>
                     </div>
                     <div class="col-lg-9 col-6 position-lg-relative position-static">
-                        <div class="support-bar">
-                            <div class="row">
-                                <div class="offset-xl-4 col-xl-8 offset-2 col-10">
-                                    <div class="row">
-                                        <div class="col-lg-4">
-                                            <div class="support-info">
-                                                <div class="left-content"><i class="flaticon-call"></i></div>
-                                                <div class="right-content">
-                                                    <div class="right-content-inner">
-                                                        <h5>Free Call</h5>
-                                                        <p>+ 00 12 123 456</p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-4">
-                                            <div class="support-info">
-                                                <div class="left-content"><i class="flaticon-email"></i></div>
-                                                <div class="right-content">
-                                                    <h5>Mail us</h5>
-                                                    <p>Support@mail.com </p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-4">
-                                            <a href="quote.html" class="boxed-btn"><span>Get a Quote</span></a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+
                         <div class="navbar-area">
                             <div class="row">
                                 <div class="col-lg-9 d-lg-block d-none">
                                     <nav class="main-menu" id="mainMenu">
                                         <ul>
                                             <li class="dropdown active">
-                                                <a href="#">Home</a>
-
+                                                <a href="{{ url('/') }}">Home</a>
                                             </li>
-
-
-                                             
+                                            <li>
+                                                <a href="{{ route('login') }}">Why US</a>
+                                            </li>
+                                            <li>
+                                                <a href="{{ route('login') }}">Report Crime</a></a>
+                                            </li>
+                                            <li>
+                                                <a href="{{ route('login') }}">Our Offices</a>
+                                            </li>
                                             <li>
                                                 <a href="{{ route('login') }}">My Account</a>
                                             </li>
                                         </ul>
                                     </nav>
                                 </div>
-                                <div class="col-lg-3 col-12 position-lg-relative position-static">
-                                    <div id="mobileMenu"></div>
-                                    <ul class="search-cart-area">
-                                        <li class="search-icon"><a href="#"><i class="flaticon-search"></i></a></li>
-                                        <li class="shopping-icon">
-                                            <a href="#"><i class="flaticon-shopping-cart-black-shape"></i></a>
-                                            <span class="count">0</span>
-                                        </li>
-                                    </ul>
-                                </div>
+
                             </div>
                         </div>
                     </div>
