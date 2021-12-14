@@ -113,10 +113,12 @@
                         <li><a href=""><i class="fa fa-plus-square-o" aria-hidden="true"></i> All CheckPoint</a> </li>
                         <li><a href="{{ url('admin/add-officer') }}"><i class="fa fa-plus-square-o" aria-hidden="true"></i> Register traffic Officer</a>
                         </li>
-                        <li><a href=""><i class="fa fa-plus-square-o" aria-hidden="true"></i> All Traffic Officers</a>
+                        <li><a href="{{ url('admin/all-traffic-officers') }}"><i class="fa fa-plus-square-o" aria-hidden="true"></i> All Traffic Officers</a>
                         </li>
 
-                        <li><a href=""><i class="fa fa-sign-out" aria-hidden="true"></i> Update Password</a>
+                        <li><a href=""{{ url('admin/account-security')}}><i class="fa fa-sign-out" aria-hidden="true"></i> Update Password</a>
+                        </li>
+                        <li><a href="{{ url('admin/notified-drivers') }}"><i class="fa fa-sign-out" aria-hidden="true"></i> Notified Drivers</a>
                         </li>
                         <li>
                             <a href="{{ route('logout') }}" onclick="event.preventDefault();
