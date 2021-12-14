@@ -24,7 +24,28 @@ class DriverController extends Controller
         if ($driver == null) {
             return redirect()->to('driver/upload-vehicle');
         } else {
-            return view('driver.dashboard', compact('driver'));
+            $todaypoints=0;
+            $totalpoints=100;
+            $totaloffenses = DriverCrime::where('driver_id', auth()->user()->id)->get();
+            if($totaloffenses->count() >=1){
+                foreach($totaloffenses as $totaloffense){
+                    $dtotalpoints = $totaloffense->points;
+                    $totalpoints -=$dtotalpoints;
+                }
+            }else{
+                $totalpoints = 100;
+            }
+            $todayoffenses = DriverCrime::where(['driver_id'=>auth()->user()->id, 'created_at'=>Carbon::today()])->get();
+            if($todayoffenses->count() >=1){
+                foreach($todayoffenses as $todayoffense){
+                    $checkpoints = $todayoffense->points;
+                    $todaypoints +=$checkpoints;
+                }
+            }else{
+                $todaypoints = 0;
+            }
+            $offenses = DriverCrime::where(['driver_id'=>auth()->user()->id, 'created_at'=>Carbon::today()])->get();
+            return view('driver.dashboard', compact(['driver', 'todaypoints','totalpoints', 'offenses']));
         }
     }
 
@@ -83,7 +104,7 @@ class DriverController extends Controller
     }
     public function allpunishments()
     {
-        $offenses = DriverCrime::where('officer_id', auth()->user()->id)->orderby('created_at', 'desc')->get();
+        $offenses = DriverCrime::where('driver_id', auth()->user()->id)->orderby('created_at', 'desc')->get();
         return view('driver.all-punishments', compact('offenses'));
     }
     public function accountprofile()

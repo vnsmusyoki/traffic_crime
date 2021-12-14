@@ -1,5 +1,5 @@
-@extends('traffic.layout')
-@section('title', 'Add Vehicle Details')
+@extends('driver.layout')
+@section('title', 'Driver Account Security')
 @section('content')
     <div class="sb2-2">
         <div class="sb2-2-2">
