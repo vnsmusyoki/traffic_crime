@@ -11,21 +11,21 @@
 ** Helper CSS
 --------------------------
 ** Preloader CSS
--------------------------- 
+--------------------------
 ** Header area CSS
--------------------------- 
+--------------------------
 ** Search popup CSS
--------------------------- 
+--------------------------
 ** Hero area CSS
 --------------------------
 ** Feature section CSS
--------------------------- 
+--------------------------
 ** Service section CSS
 --------------------------
 ** About section CSS
--------------------------- 
+--------------------------
 ** Testimonial section CSS
--------------------------- 
+--------------------------
 ** Partner section CSS
 ---------------------------
 ** FAQ section CSS
@@ -1335,8 +1335,10 @@ ul.search-cart-area {
 ---------------------------*/
 
 .hero-bg {
-    background-image: url('../img/home_1/hero_bg.jpg');
+    /* background-image: url('../img/home_1/hero_bg.jpg'); */
+    background-image: url('../banner-img-two.png');
     background-size: cover;
+    background-position: center;
 }
 
 .hero-area {
@@ -1620,7 +1622,7 @@ ul.search-cart-area {
 ---------------------------*/
 
 .about-bg {
-    background-image: url('../img/about_bg.jpg');
+    /* background-image: url('../img/about_bg.jpg'); */
     background-size: cover;
 }
 
@@ -1649,7 +1651,7 @@ ul.search-cart-area {
 }
 
 .about-section img.ceo-pic {
-    margin-top: -35px;
+
     width: 100%;
     position: relative;
     z-index: 1;
@@ -2369,20 +2371,13 @@ footer .bottom-footer {
     overflow: hidden;
 }
 
-.home-2.about-section img.ceo-pic {
-    margin-top: auto;
-    width: auto;
-}
+
 
 .home-2.about-section .comment-content {
     padding: 29px 0px 114px 0px;
 }
 
-.home-2.about-section img.ceo-pic {
-    position: absolute;
-    top: 0px;
-    left: 0px;
-}
+
 
 .home-2 .features {
     background-color: #fafbfc;
