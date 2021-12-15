@@ -53,7 +53,7 @@
                                     @endforeach
                                 @else
                                     <tr>
-                                        <td>
+                                        <td colspan="9">
                                             <center>No offense recorded</center>
                                         </td>
                                     </tr>

@@ -31,10 +31,12 @@
                                         <th>Name</th>
                                         <th>Phone Number</th>
                                         <th>Email Address</th>
+                                        <th>License</th>
+                                        <th>Vehicle</th>
                                         <th>Gender</th>
                                         <th>Total Offense points</th>
                                         <th>Edit</th>
-                                        <th>Delete</th>
+
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -50,13 +52,12 @@
                                                     {{ $driver->driverlicenseuser->other_names }}</td>
                                                 <td>{{ $driver->phone_number }}</td>
                                                 <td>{{ $driver->driverlicenseuser->email }}</td>
+                                                <td>{{ $driver->license_number }}</td>
+                                                <td>{{ $driver->plate_number }}</td>
                                                 <td>{{ $driver->gender }}</td>
                                                 <td>{{ $driver->offense_points }}</td>
-                                                <td><a href="{{ url('admin/redeem-officer/' . $driver->id) }}"><i
-                                                            class="material-icons">edit</i></a></td>
-                                                <td><a href="{{ url('admin/barn-driver/' . $driver->id) }}"><i
-                                                            class="material-icons">delete</i></a></td>
-                                            </tr>
+                                                <td><a href="{{ url('admin/redeem-driver/' . $driver->id) }}" class="btn btn-danger btn-sm">Redeem</a></td>
+
                                         @endforeach
                                     @else
                                         <tr>

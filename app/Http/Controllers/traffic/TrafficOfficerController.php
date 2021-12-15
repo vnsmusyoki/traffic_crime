@@ -4,6 +4,7 @@ namespace App\Http\Controllers\traffic;
 
 use App\Http\Controllers\Controller;
 use App\Mail\DriverRegistration;
+use App\Mail\WarningDriverPoints;
 use App\Models\DriverCrime;
 use App\Models\DrivingLicense;
 use App\Models\TrafficCrime;
@@ -25,8 +26,8 @@ class TrafficOfficerController extends Controller
     public function index()
     {
         $offenses = DriverCrime::where('officer_id', auth()->user()->id)->orderby('created_at', 'desc')->get();
-       
-        return view('traffic.dashboard',compact('offenses'));
+
+        return view('traffic.dashboard', compact('offenses'));
     }
 
     public function addoffense()
@@ -59,10 +60,15 @@ class TrafficOfficerController extends Controller
         $user = User::findOrFail($driver->driver_user_id);
         $crimes = TrafficCrime::all();
 
-        return view('traffic.driver-profile', compact(['driver', 'offenses', 'user', 'crimes']));
+        if ($driver->offense_points >= 100) {
+            return view('traffic.arrest-driver', compact(['driver', 'offenses', 'user', 'crimes']));
+        } else {
+            return view('traffic.driver-profile', compact(['driver', 'offenses', 'user', 'crimes']));
+        }
     }
     public function adddriverlicense()
     {
+
         $offenses = TrafficCrime::all();
         return view('traffic.register-vehicle', compact('offenses'));
     }
@@ -169,6 +175,7 @@ class TrafficOfficerController extends Controller
         $license = DrivingLicense::where('driver_user_id', $request->input('driverid'))->get()->first();
         $officercheckpoint = TrafficOfficer::where('traffic_user_id', auth()->user()->id)->get()->first();
         $mistakes = $request->input('driver_mistakes');
+        $checkmistakestotal = 0;
         foreach ($mistakes as $mistake) {
             $trafficoffense = TrafficCrime::findOrFail($mistake);
             $crime = new DriverCrime;
@@ -180,7 +187,29 @@ class TrafficOfficerController extends Controller
             $crime->checkpoint_id = $officercheckpoint->checkpoint_id;
             $crime->vehicle = $license->plate_number;
             $crime->save();
+            $checkmistakestotal += $trafficoffense->crime_points;
         }
+
+        $initialmistakes = $license->offense_points;
+        $newtotalmistakes = $checkmistakestotal + $initialmistakes;
+        $license->offense_points = $newtotalmistakes;
+        $license->save();
+
+        if ($newtotalmistakes >= 70) {
+            $message = "This is to Notify you that your new total offenses commited total to " . $newtotalmistakes . "The maximum number of offenses you can commit will total to 100 points. Anything more than that will lead to punishments and this might includ temporary barn from driving, reclaiming of your license among other punishments. Visit our offices for more details";
+            $receiver = $license->driverlicenseuser->email;
+            $topic = "Your offenses are above 70 points.";
+
+            Mail::to($receiver)->send(new WarningDriverPoints($receiver, $message, $topic));
+        }
+        if ($newtotalmistakes >= 100) {
+            $message = "This is to Notify you that your new total offenses commited total to " . $newtotalmistakes . "You have 24 hours to vist our offices.";
+            $receiver = $license->driverlicenseuser->email;
+            $topic = "Your offenses are above 100 points.";
+
+            Mail::to($receiver)->send(new WarningDriverPoints($receiver, $message, $topic));
+        }
+
 
         Toastr::success('Driver offenses added successfully.', 'success', ["positionClass" => "toast-top-center"]);
         return redirect()->to('officer/all-punishments');

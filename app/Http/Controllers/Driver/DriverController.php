@@ -35,7 +35,9 @@ class DriverController extends Controller
             }else{
                 $totalpoints = 100;
             }
-            $todayoffenses = DriverCrime::where(['driver_id'=>auth()->user()->id, 'created_at'=>Carbon::today()])->get();
+
+            $todayoffenses = DriverCrime::where('driver_id',auth()->user()->id)->whereDate('created_at',Carbon::today())->get();
+
             if($todayoffenses->count() >=1){
                 foreach($todayoffenses as $todayoffense){
                     $checkpoints = $todayoffense->points;
@@ -44,7 +46,7 @@ class DriverController extends Controller
             }else{
                 $todaypoints = 0;
             }
-            $offenses = DriverCrime::where(['driver_id'=>auth()->user()->id, 'created_at'=>Carbon::today()])->get();
+            $offenses = DriverCrime::where('driver_id',auth()->user()->id)->whereDate('created_at',Carbon::today())->get();
             return view('driver.dashboard', compact(['driver', 'todaypoints','totalpoints', 'offenses']));
         }
     }

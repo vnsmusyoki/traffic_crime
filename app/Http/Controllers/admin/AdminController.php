@@ -270,7 +270,15 @@ class AdminController extends Controller
     }
     public function notifieddrivers()
     {
-        $drivers = DrivingLicense::where('offense_points', '>=', 70)->orderby('offense_points', 'desc')->get();
+        $drivers = DrivingLicense::where('offense_points', '>=', 20)->orderby('offense_points', 'desc')->get();
         return view('admin.notified-drivers', compact('drivers'));
+    }
+    public function redeemdriver($license)
+    {
+        $license = DrivingLicense::findorFail($license);
+        $license->offense_points = 0;
+        $license->save();
+        Toastr::success('Driver Driving Points  have been renewed.', 'Success', ["positionClass" => "toast-top-right"]);
+        return redirect()->back();
     }
 }

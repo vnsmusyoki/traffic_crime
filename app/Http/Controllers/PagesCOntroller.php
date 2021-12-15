@@ -30,7 +30,7 @@ class PagesCOntroller extends Controller
         $fileName =  pathinfo($fileNameWithExt, PATHINFO_FILENAME);
         $Extension = $request->picture->getClientOriginalExtension();
         $filenameToStore = $fileName . '-' . time() . '.' . $Extension;
-        $path = $request->picture->storeAs('officers', $filenameToStore, 'public');
+        $path = $request->picture->storeAs('drivers', $filenameToStore, 'public');
         $user->picture = $filenameToStore;
         $user->save();
         $user->attachRole('driver');
