@@ -3,12 +3,14 @@
 namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\DrivingLicense;
 use App\Models\TrafficCheckPoint;
 use App\Models\TrafficCrime;
 use App\Models\TrafficOfficer;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Brian2694\Toastr\Facades\Toastr;
+use Illuminate\Support\Facades\Storage;
 
 class AdminController extends Controller
 {
@@ -214,5 +216,61 @@ class AdminController extends Controller
         $user->save();
         Toastr::success('Officer Account details Edited successfully.', 'Success', ["positionClass" => "toast-top-right"]);
         return redirect()->to('admin/all-officers');
+    }
+    public function accountsecurity()
+    {
+        return view('admin.account-security');
+    }
+    public function updatepassword(Request $request)
+    {
+        $this->validate($request, [
+            'password' => 'required|min:8|max:20|confirmed',
+            'password_confirmation' => 'required'
+        ]);
+
+        $user = User::find(auth()->user()->id);
+        $user->password = bcrypt($request->input('password'));
+        $user->save();
+
+        Toastr::success('password has been updated.', 'Success', ["positionClass" => "toast-top-right"]);
+        return redirect()->back();
+    }
+    public function updateemail(Request $request)
+    {
+        $this->validate($request, [
+            'email' => 'required|email|unique:users',
+        ]);
+
+        $user = User::find(auth()->user()->id);
+        $user->email = $request->input('email');
+        $user->save();
+
+        Toastr::success('Email Address has been updated.', 'Success', ["positionClass" => "toast-top-right"]);
+        return redirect()->back();
+    }
+    public function updateavatar(Request $request)
+    {
+        $this->validate($request, [
+            'picture' => 'required|image|mimes:jpeg,png,jpg|max:6048',
+        ]);
+        $user = User::find(auth()->user()->id);
+        Storage::delete('public/officers/' . $user->picture);
+        $fileNameWithExt = $request->picture->getClientOriginalName();
+        $fileName =  pathinfo($fileNameWithExt, PATHINFO_FILENAME);
+        $Extension = $request->picture->getClientOriginalExtension();
+        $filenameToStore = $fileName . '-' . time() . '.' . $Extension;
+        $path = $request->picture->storeAs('officers', $filenameToStore, 'public');
+        $user->picture = $filenameToStore;
+        $user->save();
+
+
+
+        Toastr::success('profile Picture has been updated.', 'Success', ["positionClass" => "toast-top-right"]);
+        return redirect()->back();
+    }
+    public function notifieddrivers()
+    {
+        $drivers = DrivingLicense::where('offense_points', '>=', 70)->orderby('offense_points', 'desc')->get();
+        return view('admin.notified-drivers', compact('drivers'));
     }
 }
