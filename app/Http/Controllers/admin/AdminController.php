@@ -8,6 +8,7 @@ use App\Models\TrafficCrime;
 use App\Models\TrafficOfficer;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Brian2694\Toastr\Facades\Toastr;
 
 class AdminController extends Controller
 {
@@ -39,7 +40,7 @@ class AdminController extends Controller
         $crime->crime_points = $request->input('crime_points');
         $crime->crime_description = $request->input('crime_description');
         $crime->save();
-
+        Toastr::success('New crime has been added.', 'Success', ["positionClass" => "toast-top-right"]);
         return redirect()->to('admin/all-crimes');
     }
 
@@ -69,7 +70,7 @@ class AdminController extends Controller
         $crime->crime_points = $request->input('crime_points');
         $crime->crime_description = $request->input('crime_description');
         $crime->save();
-
+        Toastr::success('Crime has been edited.', 'Success', ["positionClass" => "toast-top-right"]);
         return redirect()->to('admin/all-crimes');
     }
     public function deletecrime($id)
@@ -116,7 +117,7 @@ class AdminController extends Controller
         $checkpoint = TrafficCheckPoint::findOrFail($id);
         $checkpoint->name = $request->input('name');
         $checkpoint->save();
-
+        Toastr::success('Checkpoint has been created.', 'Success', ["positionClass" => "toast-top-right"]);
         return redirect()->to('admin/all-checkpoints');
     }
 
@@ -163,7 +164,7 @@ class AdminController extends Controller
         $path = $request->picture->storeAs('officers', $filenameToStore, 'public');
         $officer->picture = $filenameToStore;
         $officer->save();
-
+        Toastr::success('Officer account has been created.', 'Success', ["positionClass" => "toast-top-right"]);
         return redirect()->to('admin/all-officers');
     }
 
@@ -171,5 +172,47 @@ class AdminController extends Controller
     {
         $officers = TrafficOfficer::all();
         return view('admin.all-officers', compact('officers'));
+    }
+    public function editofficer($officer)
+    {
+        $officer = TrafficOfficer::findOrFail($officer);
+        $checkpoints = TrafficCheckPoint::all();
+        return view('admin.edit-officer', compact('officer', 'checkpoints'));
+    }
+    public function deleteofficer($officer)
+    {
+        $officer = TrafficOfficer::findOrFail($officer);
+        $officer->delete();
+        Toastr::error('Officer Account has been deleted.', 'Success', ["positionClass" => "toast-top-right"]);
+        return redirect()->to('admin/all-officers');
+    }
+    public function updateofficer(Request $request, $id)
+    {
+        $this->validate($request, [
+            'surname' => 'required|string',
+            'other_names' => 'required|string',
+            'phone_number' => 'required|digits:10|exists:traffic_officers',
+            'email' => 'required|email|exists:users',
+            'gender' => 'required',
+            'checkpoint' => 'required',
+
+        ]);
+
+
+
+        $officer = TrafficOfficer::findOrFail($id);
+        $officer->checkpoint_id = $request->input('checkpoint');
+        $officer->phone_number = $request->input('phone_number');
+        $officer->gender = $request->input('gender');
+        $officer->save();
+
+        $user = User::findOrFail($officer->traffic_user_id);
+        $user->surname = $request->input('surname');
+        $user->other_names = $request->input('other_names');
+        $user->email = $request->input('email');
+        $user->picture = $officer->picture;
+        $user->save();
+        Toastr::success('Officer Account details Edited successfully.', 'Success', ["positionClass" => "toast-top-right"]);
+        return redirect()->to('admin/all-officers');
     }
 }

@@ -69,5 +69,8 @@ Route::prefix('admin')->group(function () {
     Route::get('add-officer', [AdminController::class, 'addofficer']);
     Route::post('upload-officer', [AdminController::class, 'uploadofficer']);
     Route::get('all-officers', [AdminController::class, 'allofficers']);
+    Route::get('edit-officer/{officer}', [AdminController::class, 'editofficer']);
+    Route::get('delete-officer/{officer}', [AdminController::class, 'deleteofficer']);
+    Route::patch('edit_officer/{officer}', [AdminController::class, 'updateofficer']);
 });
 //

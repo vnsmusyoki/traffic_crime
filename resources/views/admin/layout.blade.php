@@ -20,6 +20,7 @@
     <link rel="stylesheet" href="{{ asset('back-end/css/mob.css') }}">
     <link rel="stylesheet" href="{{ asset('back-end/css/bootstrap.css') }}">
     <link rel="stylesheet" href="{{ asset('back-end/css/materialize.css') }}" />
+    <link rel="stylesheet" href="{{ asset('back-end/css/toastr.min.css') }}" />
 </head>
 
 <body>
@@ -56,10 +57,10 @@
 
                 <!-- Dropdown Structure -->
                 <ul id='top-menu' class='dropdown-content top-menu-sty'>
-                    <li><a href="" class="waves-effect"><i class="fa fa-cogs" aria-hidden="true"></i>Admin
+                    <li><a href="{{ route('admin') }}" class="waves-effect"><i class="fa fa-cogs" aria-hidden="true"></i>Admin
                             Dashboard</a>
                     </li>
-                    <li><a href="" class="waves-effect"><i class="fa fa-user-plus" aria-hidden="true"></i>Update
+                    <li><a href="{{ url('admin/account-security') }}" class="waves-effect"><i class="fa fa-user-plus" aria-hidden="true"></i>Update
                             Password</a>
                     </li>
                     <li class="divider"></li>
@@ -98,7 +99,7 @@
                 <!--== LEFT MENU ==-->
                 <div class="sb2-13">
                     <ul class="collapsible" data-collapsible="accordion">
-                        <li><a href="index.html" class="menu-active"><i class="fa fa-bar-chart"
+                        <li><a href="{{ route('admin') }}" class="menu-active"><i class="fa fa-bar-chart"
                                     aria-hidden="true"></i> Dashboard</a>
                         </li>
 
@@ -113,7 +114,7 @@
                         <li><a href=""><i class="fa fa-plus-square-o" aria-hidden="true"></i> All CheckPoint</a> </li>
                         <li><a href="{{ url('admin/add-officer') }}"><i class="fa fa-plus-square-o" aria-hidden="true"></i> Register traffic Officer</a>
                         </li>
-                        <li><a href="{{ url('admin/all-traffic-officers') }}"><i class="fa fa-plus-square-o" aria-hidden="true"></i> All Traffic Officers</a>
+                        <li><a href="{{ url('admin/all-officers') }}"><i class="fa fa-plus-square-o" aria-hidden="true"></i> All Traffic Officers</a>
                         </li>
 
                         <li><a href=""{{ url('admin/account-security')}}><i class="fa fa-sign-out" aria-hidden="true"></i> Update Password</a>
@@ -147,6 +148,8 @@
     <script src="{{ asset('back-end/js/bootstrap.min.js') }}"></script>
     <script src="{{ asset('back-end/js/materialize.min.js') }}"></script>
     <script src="{{ asset('back-end/js/custom.js') }}"></script>
+    <script src="{{ asset('back-end/js/toastr.min.js') }}"></script>
+    {!! Toastr::message() !!}
 </body>
 
 </html>
