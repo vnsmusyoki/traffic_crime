@@ -29,7 +29,7 @@
         <div class="blog-login-in">
             <form route="{{ route('login') }}" method="POST" autocomplete="off">
                 @csrf
-                <img src="{{ asset('front-end/images/logo.png') }}" alt="" />
+                <a href="{{ url('/') }}"><img src="{{ asset('front-end/images/logo.png') }}" alt="" /></a>
                 <div class="row">
                     <div class="input-field col s12">
                         <input id="first_name1" type="text" class="validate" name="email">
@@ -54,6 +54,7 @@
                     </div>
                 </div>
                 <a href="#" class="for-pass">Forgot Password?</a>
+                <p><a href="{{ route('register') }}">Create Driver Account</a></p>
             </form>
         </div>
     </div>

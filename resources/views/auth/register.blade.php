@@ -1,77 +1,108 @@
-@extends('layouts.app')
+<!DOCTYPE html>
+<html lang="en">
 
-@section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Register') }}</div>
+<head>
+    <title>Login Account</title>
+    <!--== META TAGS ==-->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <!--== FAV ICON ==-->
+    <link rel="shortcut icon" href="images/fav.ico">
 
-                <div class="card-body">
-                    <form method="POST" action="{{ route('register') }}">
-                        @csrf
+    <!-- GOOGLE FONTS -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600|Quicksand:300,400,500" rel="stylesheet">
 
-                        <div class="form-group row">
-                            <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Name') }}</label>
+    <!-- FONT-AWESOME ICON CSS -->
+    <link rel="stylesheet" href="{{ asset('front-end/css/font-awesome.min.css') }}">
 
-                            <div class="col-md-6">
-                                <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
+    <!--== ALL CSS FILES ==-->
+    <link rel="stylesheet" href="{{ asset('front-end/css/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('front-end/css/mob.css') }}">
+    <link rel="stylesheet" href="{{ asset('front-end/css/bootstrap.css') }}">
+    <link rel="stylesheet" href="{{ asset('front-end/css/materialize.css') }}" />
 
-                                @error('name')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
 
-                        <div class="form-group row">
-                            <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
+</head>
 
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
+<body>
+    <div class="blog-login" style="margin-top: -2rem !important;">
+        <div class="blog-login-in" style="margin-top: -.5rem !important;">
+            <form action="{{ url('register-account') }}" method="POST" autocomplete="off" enctype="multipart/form-data">
+                @csrf
+                <a href="{{ url('/') }}"><img src="{{ asset('front-end/images/logo.png') }}" alt="" /></a>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input id="first_name1" type="text" class="validate" name="surname"
+                            value="{{ old('surname') }}">
+                        <label for="first_name1">Surname</label></label>
 
-                                @error('email')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
-
-                                @error('password')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="password-confirm" class="col-md-4 col-form-label text-md-right">{{ __('Confirm Password') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
-                            </div>
-                        </div>
-
-                        <div class="form-group row mb-0">
-                            <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Register') }}
-                                </button>
-                            </div>
-                        </div>
-                    </form>
+                    </div>
+                    @error('surname')
+                        <span class="text-danger">{{ $message }}</span>
+                    @enderror
                 </div>
-            </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input id="first_name12" type="text" class="validate" name="other_names"
+                            value="{{ old('other_names') }}">
+                        <label for="first_name12">Other Names</label></label>
+
+                    </div>
+                    @error('other_names')
+                        <span class="text-danger">{{ $message }}</span>
+                    @enderror
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input id="first_name13" type="file" class="validate" name="picture">
+                    </div>
+                    @error('picture')
+                        <span class="text-danger">{{ $message }}</span>
+                    @enderror
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input id="first_name14" type="text" class="validate" name="email">
+                        <label for="first_name14">Email Address</label></label>
+
+                    </div>@error('email')
+                        <span class="text-danger">{{ $message }}</span>
+                    @enderror
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input id="last_names" type="password" class="validate" name="password">
+                        <label for="last_names">Password</label>
+                    </div>
+                    @error('password')
+                        <span class="text-danger">{{ $message }}</span>
+                    @enderror
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input id="last_name" type="password" class="validate" name="password_confirmation">
+                        <label for="last_name">Confirm Password</label>
+                    </div>
+                    @error('password_confirmation')
+                        <span class="text-danger">{{ $message }}</span>
+                    @enderror
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <button class="waves-effect waves-light btn-large btn-log-in" type="submit">Login</button>
+                    </div>
+                </div>
+                <a href="{{ route('login') }}" class="for-pass">Return to Login Page?</a>
+
+            </form>
         </div>
     </div>
-</div>
-@endsection
+
+    <!--======== SCRIPT FILES =========-->
+    <script src="{{ asset('front-end/js/jquery.min.js') }}"></script>
+    <script src="{{ asset('front-end/js/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('front-end/js/materialize.min.js') }}"></script>
+    <script src="{{ asset('front-end/js/custom.js') }}"></script>
+</body>
+
+</html>

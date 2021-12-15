@@ -24,6 +24,7 @@ use Illuminate\Support\Facades\Route;
 
 Auth::routes(['verify' => true]);
 Route::get('/', [PagesCOntroller::class, 'index']);
+Route::post('/register-account', [PagesCOntroller::class, 'register']);
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::get('driver/dashboard', [DriverController::class, 'index'])->name('driver');
