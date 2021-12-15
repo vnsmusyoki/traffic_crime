@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 06, 2021 at 11:23 AM
--- Server version: 10.4.22-MariaDB
--- PHP Version: 8.0.13
+-- Generation Time: Dec 15, 2021 at 10:30 AM
+-- Server version: 10.4.21-MariaDB
+-- PHP Version: 7.3.31
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -20,6 +20,41 @@ SET time_zone = "+00:00";
 --
 -- Database: `traffic_crime`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `driver_crimes`
+--
+
+CREATE TABLE `driver_crimes` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `crime_id` bigint(20) UNSIGNED DEFAULT NULL,
+  `driver_id` bigint(20) UNSIGNED DEFAULT NULL,
+  `points` int(11) NOT NULL,
+  `officer_id` bigint(20) UNSIGNED DEFAULT NULL,
+  `license_id` bigint(20) UNSIGNED DEFAULT NULL,
+  `checkpoint_id` bigint(20) UNSIGNED DEFAULT NULL,
+  `vehicle` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `driver_crimes`
+--
+
+INSERT INTO `driver_crimes` (`id`, `crime_id`, `driver_id`, `points`, `officer_id`, `license_id`, `checkpoint_id`, `vehicle`, `created_at`, `updated_at`) VALUES
+(1, 1, 9, 5, 2, 3, 1, 'KCB997TP', '2021-12-12 17:12:52', '2021-12-12 17:12:52'),
+(2, 3, 9, 10, 2, 3, 1, 'KCB997TP', '2021-12-12 17:12:52', '2021-12-12 17:12:52'),
+(3, 1, 10, 5, 2, 4, 1, 'KCB997TL', '2021-12-12 17:53:12', '2021-12-12 17:53:12'),
+(4, 3, 10, 10, 2, 4, 1, 'KCB997TL', '2021-12-12 17:53:13', '2021-12-12 17:53:13'),
+(5, 4, 10, 10, 2, 4, 1, 'KCB997TL', '2021-12-12 17:53:13', '2021-12-12 17:53:13'),
+(6, 1, 12, 5, 11, 5, 1, 'KCB997TA', '2021-12-15 05:58:00', '2021-12-15 05:58:00'),
+(7, 4, 12, 10, 11, 5, 1, 'KCB997TA', '2021-12-15 05:58:00', '2021-12-15 05:58:00'),
+(8, 1, 12, 5, 11, 5, 1, 'KCB997TA', '2021-12-15 06:00:18', '2021-12-15 06:00:18'),
+(9, 3, 12, 10, 11, 5, 1, 'KCB997TA', '2021-12-15 06:00:18', '2021-12-15 06:00:18'),
+(10, 4, 12, 10, 11, 5, 1, 'KCB997TA', '2021-12-15 06:00:18', '2021-12-15 06:00:18');
 
 -- --------------------------------------------------------
 
@@ -44,6 +79,7 @@ CREATE TABLE `driving_licenses` (
   `uploaded_vehicle` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `driving_license` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `driver_points` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `offense_points` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '0',
   `driver_verification` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
@@ -53,8 +89,12 @@ CREATE TABLE `driving_licenses` (
 -- Dumping data for table `driving_licenses`
 --
 
-INSERT INTO `driving_licenses` (`id`, `driver_user_id`, `surname`, `other_names`, `id_number`, `license_number`, `date_of_birth`, `date_of_issue`, `gender`, `phone_number`, `date_of_expiry`, `county_of_residence`, `plate_number`, `uploaded_vehicle`, `driving_license`, `driver_points`, `driver_verification`, `created_at`, `updated_at`) VALUES
-(1, 3, 'Driver', '', '88585757', 'okms76s', '1998-10-01', '2021-11-29', 'Male', '0789654432', '2021-12-30 08:00:00', 'Mombasa', 'okmnbv99', 'Capture-1638761750.PNG', 'Student_-1638761750.pdf', '100', 'pending', '2021-12-06 11:35:50', '2021-12-06 11:35:50');
+INSERT INTO `driving_licenses` (`id`, `driver_user_id`, `surname`, `other_names`, `id_number`, `license_number`, `date_of_birth`, `date_of_issue`, `gender`, `phone_number`, `date_of_expiry`, `county_of_residence`, `plate_number`, `uploaded_vehicle`, `driving_license`, `driver_points`, `offense_points`, `driver_verification`, `created_at`, `updated_at`) VALUES
+(1, 3, 'Driver', '', '88585757', 'okms76s', '1998-10-01', '2021-11-29', 'Male', '0789654432', '2021-12-30 08:00:00', 'Mombasa', 'okmnbv99', 'Capture-1638761750.PNG', 'Student_-1638761750.pdf', '100', '0', 'pending', '2021-12-06 11:35:50', '2021-12-06 11:35:50'),
+(2, 8, 'makori', 'makori ndiragu', '12345678', 'QWE1234', '1998-01-06', '2021-10-12', 'Male', '0720882599', '2022-07-30 21:00:00', 'Mombasa', 'KCB997TT', 'video-1639326659.png', 'Network Topologies-1639326660.pdf', '100', '0', 'pending', '2021-12-12 13:31:00', '2021-12-12 13:31:00'),
+(3, 9, 'makori', 'makori ndiragu', '12345679', 'QWE1235', '1998-01-06', '2021-10-12', 'Male', '0720882500', '2022-07-30 21:00:00', 'Mombasa', 'KCB997TP', 'destination-1-3-1639327179.png', 'BBM-115-Introduction-to-Microeconomics-Instructional-Material-1639327179.pdf', '100', '0', 'pending', '2021-12-12 13:39:39', '2021-12-12 13:39:39'),
+(4, 10, 'surname', 'ONESMUS MUANGE', '34688148', 'QWE1239', '1993-06-10', '2019-05-22', 'Male', '0720882594', '2021-12-30 21:00:00', 'Mombasa', 'KCB997TL', 'gallery-one-img-1-1639342392.jpg', 'ds-1639342392.pdf', '100', '0', 'pending', '2021-12-12 17:53:12', '2021-12-12 17:53:12'),
+(5, 12, 'new driver', 'best driver', '98765432', 'oplksma', '1970-01-01', '1990-01-01', 'Male', '0799889988', '2021-12-15 09:28:48', 'Nairobi', 'KCB997TA', 'gallery-one-img-1-1639556558.jpg', 'Results for KEVIN KYALO-1639556558.pdf', '100', '0', 'pending', '2021-12-15 05:22:38', '2021-12-15 06:28:48');
 
 -- --------------------------------------------------------
 
@@ -98,7 +138,8 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (9, '2021_12_06_040757_create_traffic_crimes_table', 3),
 (13, '2021_12_06_045111_create_traffic_offenses_table', 4),
 (14, '2021_12_06_050002_create_traffic_check_points_table', 4),
-(15, '2021_12_06_050347_create_traffic_officers_table', 4);
+(15, '2021_12_06_050347_create_traffic_officers_table', 4),
+(17, '2021_12_12_140536_create_driver_crimes_table', 5);
 
 -- --------------------------------------------------------
 
@@ -266,7 +307,9 @@ INSERT INTO `role_user` (`role_id`, `user_id`, `user_type`, `team_id`) VALUES
 (4, 4, 'App\\Models\\User', NULL),
 (2, 5, 'App\\Models\\User', NULL),
 (2, 6, 'App\\Models\\User', NULL),
-(2, 7, 'App\\Models\\User', NULL);
+(2, 7, 'App\\Models\\User', NULL),
+(2, 11, 'App\\Models\\User', NULL),
+(3, 12, 'App\\Models\\User', NULL);
 
 -- --------------------------------------------------------
 
@@ -323,7 +366,9 @@ CREATE TABLE `traffic_crimes` (
 --
 
 INSERT INTO `traffic_crimes` (`id`, `crime_name`, `crime_points`, `crime_description`, `created_at`, `updated_at`) VALUES
-(1, 'overspeeding', '5', 'Not observing the set time speed limit', '2021-12-06 12:32:42', '2021-12-06 12:32:42');
+(1, 'overspeeding', '5', 'Not observing the set time speed limit', '2021-12-06 12:32:42', '2021-12-06 12:32:42'),
+(3, 'No License', '10', 'No license applied', '2021-12-12 12:51:33', '2021-12-12 12:51:33'),
+(4, 'Expired License', '10', 'failed to Renew License', '2021-12-12 12:52:00', '2021-12-12 12:52:00');
 
 -- --------------------------------------------------------
 
@@ -362,7 +407,8 @@ CREATE TABLE `traffic_officers` (
 --
 
 INSERT INTO `traffic_officers` (`id`, `traffic_user_id`, `checkpoint_id`, `phone_number`, `picture`, `gender`, `created_at`, `updated_at`) VALUES
-(1, 7, 1, '0707979695', 'Screenshot (1)-1638771093.png', 'Male', '2021-12-06 14:11:33', '2021-12-06 14:11:33');
+(1, 2, 1, '0707979695', 'gallery-one-img-5-1639341728.jpg', 'Male', '2021-12-06 14:11:33', '2021-12-12 17:42:08'),
+(2, 11, 1, '0722998877', '4-1639553946.jpeg', 'Male', '2021-12-15 04:39:07', '2021-12-15 04:39:07');
 
 -- --------------------------------------------------------
 
@@ -375,6 +421,7 @@ CREATE TABLE `users` (
   `surname` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `other_names` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
   `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `picture` varchar(500) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `email_verified_at` timestamp NULL DEFAULT NULL,
   `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -386,16 +433,32 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `surname`, `other_names`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'Superadministrator', '', 'superadministrator@app.com', NULL, '$2y$10$KyvFuXWv9GTctCfNcBp9A.Pv2GkdG4FMrkOMzPz7s6yrZRDhmIUou', NULL, '2021-12-05 17:40:55', '2021-12-05 17:40:55'),
-(2, 'Trafficofficer', '', 'trafficofficer@app.com', NULL, '$2y$10$drvDRZw7lqzDxB0OrDIg..Hc1imKVc39bYoduzbLgegnrbQ/OfVBy', NULL, '2021-12-05 17:40:55', '2021-12-05 17:40:55'),
-(3, 'Driver', '', 'driver@app.com', NULL, '$2y$10$OBMoFwis3hlGYIsadsAdxeCO/VoHzpOA4.AZR1Q0B.Ykx1IKiaRyO', NULL, '2021-12-05 17:40:56', '2021-12-05 17:40:56'),
-(4, 'Role Name', '', 'role_name@app.com', NULL, '$2y$10$nH1Ho0mOY6Rh5L/UBrKFGuxj/35U1fngcCNECT8IUKmlfeUC3DmNi', NULL, '2021-12-05 17:40:56', '2021-12-05 17:40:56'),
-(7, 'KiNG\'OO', 'ONESMUS MUANGE', 'onestohcoder81@gmail.com', NULL, '$2y$10$tNJF/5Qm9NwKSl6K/oXd6.Ni2GD0gGZLF/w7rvnywDx/txbtUO9/i', NULL, '2021-12-06 14:11:33', '2021-12-06 14:11:33');
+INSERT INTO `users` (`id`, `surname`, `other_names`, `email`, `picture`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
+(1, 'Superadministrator', '', 'superadministrator@app.com', NULL, NULL, '$2y$10$KyvFuXWv9GTctCfNcBp9A.Pv2GkdG4FMrkOMzPz7s6yrZRDhmIUou', NULL, '2021-12-05 17:40:55', '2021-12-05 17:40:55'),
+(2, 'Trafficofficer', 'Evans Kimeu', 'trafficofficer@app.com', 'gallery-one-img-5-1639341728.jpg', NULL, '$2y$10$drvDRZw7lqzDxB0OrDIg..Hc1imKVc39bYoduzbLgegnrbQ/OfVBy', NULL, '2021-12-05 17:40:55', '2021-12-15 04:32:31'),
+(3, 'Driver', '', 'driver@app.com', NULL, NULL, '$2y$10$OBMoFwis3hlGYIsadsAdxeCO/VoHzpOA4.AZR1Q0B.Ykx1IKiaRyO', NULL, '2021-12-05 17:40:56', '2021-12-05 17:40:56'),
+(4, 'Role Name', '', 'role_name@app.com', NULL, NULL, '$2y$10$nH1Ho0mOY6Rh5L/UBrKFGuxj/35U1fngcCNECT8IUKmlfeUC3DmNi', NULL, '2021-12-05 17:40:56', '2021-12-05 17:40:56'),
+(7, 'KiNG\'OO', 'ONESMUS MUANGE', 'onestohcoder81@gmail.com', NULL, NULL, '$2y$10$tNJF/5Qm9NwKSl6K/oXd6.Ni2GD0gGZLF/w7rvnywDx/txbtUO9/i', NULL, '2021-12-06 14:11:33', '2021-12-06 14:11:33'),
+(8, 'makori', 'makori ndiragu', 'vnsdsmusyoki@gmail.com', NULL, NULL, '$2y$10$Q9ZdXkg89UBRHNOYPeuDhO5hFrjPsMMeP8T.x35cVOT5V5mExtP/2', NULL, '2021-12-12 13:30:59', '2021-12-12 13:30:59'),
+(9, 'makori', 'makori ndiragu', 'kimcomputingspecialist@gmail.com', NULL, NULL, '$2y$10$QHlNfXmenVencXW/AeT7wOo75iddbSb6Aq0s0DVlCLRM8tUOXWtEK', NULL, '2021-12-12 13:39:39', '2021-12-12 13:39:39'),
+(10, 'surname', 'ONESMUS MUANGE', 'vnsmusyoki@gmail.com', NULL, NULL, '$2y$10$fb6hJNzt8Vhx3eDRhIvBruMFXOw6zlBMEUSJSpphXdSu4TWVwhuq6', NULL, '2021-12-12 17:53:12', '2021-12-12 17:53:12'),
+(11, 'captain', 'captain vinnie', 'captain@gmail.com', NULL, NULL, '$2y$10$4aRFO0AO0FF6gKDwYL3L6e5hZzSwVsitjKJClc5DuXfO7x0pz/8Mq', NULL, '2021-12-15 04:39:05', '2021-12-15 04:39:05'),
+(12, 'new driver', 'best driver', 'bestdriver@gmail.com', '1-1639556304.jpeg', NULL, '$2y$10$Rsjae.t6iVygubPPtvnr2eeDYmgqS/k8RhXLotcsf5oPi4ZgEujFa', NULL, '2021-12-15 05:18:24', '2021-12-15 05:18:24');
 
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `driver_crimes`
+--
+ALTER TABLE `driver_crimes`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `driver_crimes_crime_id_foreign` (`crime_id`),
+  ADD KEY `driver_crimes_driver_id_foreign` (`driver_id`),
+  ADD KEY `driver_crimes_officer_id_foreign` (`officer_id`),
+  ADD KEY `driver_crimes_license_id_foreign` (`license_id`),
+  ADD KEY `driver_crimes_checkpoint_id_foreign` (`checkpoint_id`);
 
 --
 -- Indexes for table `driving_licenses`
@@ -519,10 +582,16 @@ ALTER TABLE `users`
 --
 
 --
+-- AUTO_INCREMENT for table `driver_crimes`
+--
+ALTER TABLE `driver_crimes`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
+--
 -- AUTO_INCREMENT for table `driving_licenses`
 --
 ALTER TABLE `driving_licenses`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `failed_jobs`
@@ -534,7 +603,7 @@ ALTER TABLE `failed_jobs`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `permissions`
@@ -570,7 +639,7 @@ ALTER TABLE `traffic_check_points`
 -- AUTO_INCREMENT for table `traffic_crimes`
 --
 ALTER TABLE `traffic_crimes`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `traffic_offenses`
@@ -582,17 +651,27 @@ ALTER TABLE `traffic_offenses`
 -- AUTO_INCREMENT for table `traffic_officers`
 --
 ALTER TABLE `traffic_officers`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- Constraints for dumped tables
 --
+
+--
+-- Constraints for table `driver_crimes`
+--
+ALTER TABLE `driver_crimes`
+  ADD CONSTRAINT `driver_crimes_checkpoint_id_foreign` FOREIGN KEY (`checkpoint_id`) REFERENCES `traffic_check_points` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `driver_crimes_crime_id_foreign` FOREIGN KEY (`crime_id`) REFERENCES `traffic_crimes` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `driver_crimes_driver_id_foreign` FOREIGN KEY (`driver_id`) REFERENCES `users` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `driver_crimes_license_id_foreign` FOREIGN KEY (`license_id`) REFERENCES `driving_licenses` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `driver_crimes_officer_id_foreign` FOREIGN KEY (`officer_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `driving_licenses`
