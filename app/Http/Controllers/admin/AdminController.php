@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\DriverCrime;
 use App\Models\DrivingLicense;
 use App\Models\TrafficCheckPoint;
 use App\Models\TrafficCrime;
@@ -270,15 +271,33 @@ class AdminController extends Controller
     }
     public function notifieddrivers()
     {
-        $drivers = DrivingLicense::where('offense_points', '>=', 20)->orderby('offense_points', 'desc')->get();
+        $drivers = DrivingLicense::where('offense_points', '>=', 10)->orderby('offense_points', 'desc')->get();
         return view('admin.notified-drivers', compact('drivers'));
+    }
+    public function alldrivers()
+    {
+        $drivers = DrivingLicense::all();
+        return view('admin.all-drivers', compact('drivers'));
     }
     public function redeemdriver($license)
     {
-        $license = DrivingLicense::findorFail($license);
-        $license->offense_points = 0;
-        $license->save();
+        $licensecheck = DrivingLicense::findorFail($license);
+        $licensecheck->offense_points = 0;
+        $licensecheck->save();
+        
+        $offenses = DriverCrime::where('license_id', $license)->get();
+        foreach($offenses as $offense){
+            $offense->delete();
+        }
+
         Toastr::success('Driver Driving Points  have been renewed.', 'Success', ["positionClass" => "toast-top-right"]);
         return redirect()->back();
+    }
+    public function driverprofile($driverid){
+        $driver = DrivingLicense::findOrFail($driverid);
+        $offenses = DriverCrime::where('driver_id', $driver->driver_user_id)->orderby('created_at', 'desc')->get();
+        $user = User::findOrFail($driver->driver_user_id);
+        $crimes = TrafficCrime::all();
+        return view('admin.driver-details', compact(['driver', 'offenses', 'user', 'crimes']));
     }
 }

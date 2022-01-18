@@ -79,5 +79,7 @@ Route::prefix('admin')->group(function () {
     Route::post('update-avatar', [AdminController::class, 'updateavatar']);
     Route::get('notified-drivers', [AdminController::class, 'notifieddrivers']);
     Route::get('redeem-driver/{license}', [AdminController::class, 'redeemdriver']);
+    Route::get('all-drivers', [AdminController::class, 'alldrivers']);
+    Route::get('view-driver-profile/{driverid}', [AdminController::class, 'driverprofile']);
 });
 //

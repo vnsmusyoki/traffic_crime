@@ -21,6 +21,8 @@
     <link rel="stylesheet" href="{{ asset('back-end/css/bootstrap.css') }}">
     <link rel="stylesheet" href="{{ asset('back-end/css/materialize.css') }}" />
     <link rel="stylesheet" href="{{ asset('back-end/css/toastr.min.css') }}" />
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.1.0/css/buttons.dataTables.min.css">
 </head>
 
 <body>
@@ -105,6 +107,8 @@
 
                         <li><a href="{{ url('admin/add-crime') }}"><i class="fa fa-plus-square-o" aria-hidden="true"></i> Add Crime</a>
                         </li>
+                        <li><a href="{{ url('admin/all-drivers') }}"><i class="fa fa-plus-square-o" aria-hidden="true"></i> All Drivers</a>
+                        </li>
                         <li><a href="{{ url('admin/all-crimes') }}"><i class="fa fa-plus-square-o" aria-hidden="true"></i>  All Crimes</a>
                         </li>
 
@@ -150,6 +154,19 @@
     <script src="{{ asset('back-end/js/custom.js') }}"></script>
     <script src="{{ asset('back-end/js/toastr.min.js') }}"></script>
     {!! Toastr::message() !!}
+    <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.1.0/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.1.0/js/buttons.print.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#exampleds').DataTable({
+                dom: 'Bfrtip',
+                buttons: [
+                    'print'
+                ]
+            });
+        });
+    </script>
 </body>
 
 </html>

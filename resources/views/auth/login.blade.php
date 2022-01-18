@@ -53,7 +53,7 @@
                         <button class="waves-effect waves-light btn-large btn-log-in" type="submit">Login</button>
                     </div>
                 </div>
-                <a href="#" class="for-pass">Forgot Password?</a>
+                <a href="{{ route('password.request') }}" class="for-pass">Forgot Password?</a>
                 <p><a href="{{ route('register') }}">Create Driver Account</a></p>
             </form>
         </div>

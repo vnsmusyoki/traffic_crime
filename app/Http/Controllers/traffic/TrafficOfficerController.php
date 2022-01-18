@@ -194,7 +194,6 @@ class TrafficOfficerController extends Controller
         $newtotalmistakes = $checkmistakestotal + $initialmistakes;
         $license->offense_points = $newtotalmistakes;
         $license->save();
-
         if ($newtotalmistakes >= 70) {
             $message = "This is to Notify you that your new total offenses commited total to " . $newtotalmistakes . "The maximum number of offenses you can commit will total to 100 points. Anything more than that will lead to punishments and this might includ temporary barn from driving, reclaiming of your license among other punishments. Visit our offices for more details";
             $receiver = $license->driverlicenseuser->email;
