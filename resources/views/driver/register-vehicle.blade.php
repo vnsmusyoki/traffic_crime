@@ -77,14 +77,15 @@
                                         @enderror
                                         <small class="text-muted form-text">Date of Expiry</small>
                                     </div>
-
                                 </div>
                                 <div class="row">
                                     <div class="input-field col s12">
                                         <select name="county_of_residence" class="validate" id="">
-                                            <option value="">Select Residence county</option>
-                                            <option value="Mombasa">Mombasa</option>
-                                            <option value="Nairobi">Nairobi</option>
+                                            <option value="">Area of Residence</option>
+                                            <option value="Nkubu">Nkubu</option>
+                                            <option value="Kunene">Kunene</option>
+                                            <option value="Kianjai">Kianjai</option>
+                                            <option value="Maua">Maua</option>
                                         </select>
                                         @error('county_of_residence')
                                             <span class="text-danger">{{ $message }}</span>

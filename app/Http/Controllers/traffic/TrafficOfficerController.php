@@ -174,6 +174,7 @@ class TrafficOfficerController extends Controller
 
         $license = DrivingLicense::where('driver_user_id', $request->input('driverid'))->get()->first();
         $officercheckpoint = TrafficOfficer::where('traffic_user_id', auth()->user()->id)->get()->first();
+        // dd($officercheckpoint);
         $mistakes = $request->input('driver_mistakes');
         $checkmistakestotal = 0;
         foreach ($mistakes as $mistake) {
